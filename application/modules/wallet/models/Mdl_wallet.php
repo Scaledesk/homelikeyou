@@ -162,7 +162,8 @@ class Mdl_wallet extends CI_Model{
                 case strtolower(Wallet_transaction_type::CREDIT):{
                     $this->setWalletAmount($this->getWalletAmount()+$this->getTransactionAmount());
                      $this->db->where('hlu_users_wallet_id',$this->getWalletId())->update('hlu_users_wallet',['hlu_users_wallet_amount'=>$this->getWalletAmount()]);
-                    $this->db->update('hlu_users_wallet',['hlu_users_wallet_amount'=>$this->getWalletAmount()]);
+                    $this->db->update('hlu_users_wallet',['hlu_users_wallet_amount'=>$this->getWalletAmount(),
+                    ]);
                     break;
                 }
                 case strtolower(Wallet_transaction_type::DEBIT):{

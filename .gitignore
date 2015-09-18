@@ -6,4 +6,6 @@
 */cache/!.htaccess
 */application/config/database.php
 */application/config/config.php
+*.xml
+*/.idea
 
