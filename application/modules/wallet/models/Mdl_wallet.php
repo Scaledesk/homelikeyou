@@ -156,16 +156,23 @@ class Mdl_wallet extends CI_Model{
     public function doWalletTransaction(){
         $this->_validate();
         if($wallet_amount=$this->db->where('hlu_users_wallet_id',$this->getWalletId())->select(array('hlu_users_wallet_amount'))->get('hlu_users_wallet')->result_array()){
-            print_r($wallet_amount);
             $this->setWalletAmount($wallet_amount[0]['hlu_users_wallet_amount']);
             switch(func_get_arg(0)){
                 case strtolower(Wallet_transaction_type::CREDIT):{
                     $this->setWalletAmount($this->getWalletAmount()+$this->getTransactionAmount());
-                     $this->db->where('hlu_users_wallet_id',$this->getWalletId())->update('hlu_users_wallet',['hlu_users_wallet_amount'=>$this->getWalletAmount()]);
-                    $this->db->update('hlu_users_wallet',['hlu_users_wallet_amount'=>$this->getWalletAmount(),
+                    $this->db->trans_start();
+                    $this->db->where('hlu_users_wallet_id',$this->getWalletId())->update('hlu_users_wallet',['hlu_users_wallet_amount'=>$this->getWalletAmount()]);
+                    $this->db->insert('hlu_wallet_transactions', [
+                        'hlu_wallet_transactions_wallet_id' => $this->getWalletId(),
+                        'hlu_wallet_transactions_description' => $this->getTransactionDescription(),
+                        'hlu_wallet_transactions_transaction_type' => $this->getTransactionType(),
+                        'hlu_wallet_transactions_transaction_amount' => $this->getTransactionAmount()
                     ]);
+                    $this->db->trans_complete();
+                    return $this->db->trans_status()?true:false;
+                     }
                     break;
-                }
+
                 case strtolower(Wallet_transaction_type::DEBIT):{
                     break;
                 }
