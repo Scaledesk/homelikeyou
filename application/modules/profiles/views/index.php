@@ -6,7 +6,7 @@
  * Time: 4:23 PM
  */
 
-echo form_open('profile'); ?>
+echo form_open('profiles'); ?>
       <input type="text"  name="first_name" > </br>
       <input type="text"  name="last_name" > </br>
      <input type="hidden"  name="todo" value="hlm8734" > </br>
@@ -14,13 +14,13 @@ echo form_open('profile'); ?>
 <input type="submit"  name="submit" value="submit" > </br>
 <?php echo form_close(); ?> </br>
 
-<?php  echo form_open_multipart('profile'); ?>
+<?php  echo form_open_multipart('profiles'); ?>
       <input type="file"    name="image" > </br>
       <input type="hidden"  name="todo" value="hlm34523" > </br>
       <input type="submit"  name="submit" value="submit" > </br>
 <?php echo form_close(); ?> </br>
 
-<?php echo form_open('profile'); ?>
+<?php echo form_open('profiles'); ?>
         <input type="text"  name="address" > </br>
         <input type="text"  name="pin" > </br>
         <input type="text"  name="state" > </br>

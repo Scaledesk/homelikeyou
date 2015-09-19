@@ -35,13 +35,13 @@ class Google_Service_PlusDomains extends Google_Service
   const PLUS_CIRCLES_READ = "https://www.googleapis.com/auth/plus.circles.read";
   /** Manage your circles and add people and pages. People and pages you add to your circles will be notified. Others may see this information publicly. People you add to circles can use Hangouts with you.. */
   const PLUS_CIRCLES_WRITE = "https://www.googleapis.com/auth/plus.circles.write";
-  /** Know your basic profile info and list of people in your circles.. */
+  /** Know your basic profiles info and list of people in your circles.. */
   const PLUS_LOGIN = "https://www.googleapis.com/auth/plus.login";
   /** Know who you are on Google. */
   const PLUS_ME = "https://www.googleapis.com/auth/plus.me";
   /** Send your photos and videos to Google+. */
   const PLUS_MEDIA_UPLOAD = "https://www.googleapis.com/auth/plus.media.upload";
-  /** View your own Google+ profile and profiles visible to you. */
+  /** View your own Google+ profiles and profiles visible to you. */
   const PLUS_PROFILES_READ = "https://www.googleapis.com/auth/plus.profiles.read";
   /** View your Google+ posts, comments, and stream. */
   const PLUS_STREAM_READ = "https://www.googleapis.com/auth/plus.stream.read";
@@ -49,8 +49,8 @@ class Google_Service_PlusDomains extends Google_Service
   const PLUS_STREAM_WRITE = "https://www.googleapis.com/auth/plus.stream.write";
   /** View your email address. */
   const USERINFO_EMAIL = "https://www.googleapis.com/auth/userinfo.email";
-  /** View your basic profile info. */
-  const USERINFO_PROFILE = "https://www.googleapis.com/auth/userinfo.profile";
+  /** View your basic profiles info. */
+  const USERINFO_PROFILE = "https://www.googleapis.com/auth/userinfo.profiles";
 
   public $activities;
   public $audiences;
@@ -810,10 +810,10 @@ class Google_Service_PlusDomains_People_Resource extends Google_Service_Resource
 {
 
   /**
-   * Get a person's profile. (people.get)
+   * Get a person's profiles. (people.get)
    *
    * @param string $userId
-   * The ID of the person to get the profile for. The special value "me" can be used to indicate the
+   * The ID of the person to get the profiles for. The special value "me" can be used to indicate the
     * authenticated user.
    * @param array $optParams Optional parameters.
    * @return Google_Service_PlusDomains_Person
