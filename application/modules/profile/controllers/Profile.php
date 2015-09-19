@@ -52,7 +52,7 @@ function index()
 
 			case'step1':   /*echo '<pre/>' ;
 							print_r($data);*/
-							$this->Mdl_profile->setData($todo,/*"2"*/$this->session->userdata('user_id'),$data['first_name'],$data['last_name']);
+							$this->Mdl_profile->setData($todo,/*"2"*/$this->session->userdata['user_data']['user_id'],$data['first_name'],$data['last_name']);
 							return $this->Mdl_profile->updateProfile($todo)?true:false;
 							break;
 			case 'step2':
@@ -71,12 +71,12 @@ function index()
 				            $this->upload->do_upload('image');
 
 
-							$this->Mdl_profile->setData($todo,$image);
+							$this->Mdl_profile->setData($todo,$image,$this->session->userdata['user_data']['user_id']);
 
 						   return $this->Mdl_profile->updateProfile($todo)?true:false;
 			      break;
 
-			case 'step3': $this->Mdl_profile->setData($todo,$data['address'],$data['pin'],$data['state'],$data['country']);
+			case 'step3': $this->Mdl_profile->setData($todo,$data['address'],$data['pin'],$data['state'],$data['country'],$this->session->userdata['user_data']['user_id']);
 						  return $this->Mdl_profile->updateProfile($todo)?true:false;
 				break;
 

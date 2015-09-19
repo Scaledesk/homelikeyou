@@ -163,6 +163,7 @@ class Mdl_profile extends CI_Model{
                 //echo func_get_arg(1);
 
                 $this->setImage(func_get_arg(1));
+                $this->setProfileId(func_get_arg(2));
                  break;
                   }
 
@@ -171,6 +172,7 @@ class Mdl_profile extends CI_Model{
                 $this->setPin(func_get_arg(2));
                 $this->setState(func_get_arg(3));
                 $this->setCountry(func_get_arg(4));
+                $this->setProfileId(func_get_arg(5));
                 break;
                }
             default:break;
@@ -222,7 +224,7 @@ class Mdl_profile extends CI_Model{
                               'hlu_profiles_country'=>$this->getCountry()
 
                           ];
-                           return $this->db->where(array('hlu_profiles_id'=>/*$this->getProfileId()*/2))->update('hlu_profiles', $data) ? true : false;
+                           return $this->db->where(array('hlu_profiles_id'=>$this->getProfileId()/*2*/))->update('hlu_profiles', $data) ? true : false;
 
                    break;
             }
