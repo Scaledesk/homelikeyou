@@ -282,7 +282,7 @@ class Users extends MX_Controller{
             //For Guest user, get google login url
             $gClient->setScopes(array(
                 'https://www.googleapis.com/auth/plus.login',
-                'profile',
+                'profiles',
                 'email',
                 'openid',
             ));

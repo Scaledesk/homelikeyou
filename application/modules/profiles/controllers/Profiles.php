@@ -12,7 +12,7 @@ Class Profiles extends MX_Controller{
 
 function __construct(){
 	parent::__construct();
-	$this->load->Model('Mdl_profile');
+	$this->load->Model('Mdl_profiles');
 //	$this->load->helper(array('form','url','language'));
 	$this->load->library('upload');
 }
@@ -52,8 +52,8 @@ function index()
 
 			case'step1':   /*echo '<pre/>' ;
 							print_r($data);*/
-							$this->Mdl_profile->setData($todo,/*"2"*/$this->session->userdata['user_data']['user_id'],$data['first_name'],$data['last_name']);
-							return $this->Mdl_profile->updateProfile($todo)?true:false;
+							$this->Mdl_profiles->setData($todo,/*"2"*/$this->session->userdata['user_data']['user_id'],$data['first_name'],$data['last_name']);
+							return $this->Mdl_profiles->updateProfile($todo)?true:false;
 							break;
 			case 'step2':
 
@@ -71,13 +71,13 @@ function index()
 				            $this->upload->do_upload('image');
 
 
-							$this->Mdl_profile->setData($todo,$image,$this->session->userdata['user_data']['user_id']);
+							$this->Mdl_profiles->setData($todo,$image,$this->session->userdata['user_data']['user_id']);
 
-						   return $this->Mdl_profile->updateProfile($todo)?true:false;
+						   return $this->Mdl_profiles->updateProfile($todo)?true:false;
 			      break;
 
-			case 'step3': $this->Mdl_profile->setData($todo,$data['address'],$data['pin'],$data['state'],$data['country'],$this->session->userdata['user_data']['user_id']);
-						  return $this->Mdl_profile->updateProfile($todo)?true:false;
+			case 'step3': $this->Mdl_profiles->setData($todo,$data['address'],$data['pin'],$data['state'],$data['country'],$this->session->userdata['user_data']['user_id']);
+						  return $this->Mdl_profiles->updateProfile($todo)?true:false;
 				break;
 
 			default: break;
