@@ -269,7 +269,7 @@ class Google_Service_Reports_Activities_Resource extends Google_Service_Resource
    * (activities.listActivities)
    *
    * @param string $userKey
-   * Represents the profile id or the user email for which the data should be filtered. When 'all' is
+   * Represents the profiles id or the user email for which the data should be filtered. When 'all' is
     * specified as the userKey, it returns usageReports for all users.
    * @param string $applicationName
    * Application name for which the events are to be retrieved.
@@ -304,7 +304,7 @@ class Google_Service_Reports_Activities_Resource extends Google_Service_Resource
    * Push changes to activities (activities.watch)
    *
    * @param string $userKey
-   * Represents the profile id or the user email for which the data should be filtered. When 'all' is
+   * Represents the profiles id or the user email for which the data should be filtered. When 'all' is
     * specified as the userKey, it returns usageReports for all users.
    * @param string $applicationName
    * Application name for which the events are to be retrieved.
@@ -415,7 +415,7 @@ class Google_Service_Reports_UserUsageReport_Resource extends Google_Service_Res
    * of users. (userUsageReport.get)
    *
    * @param string $userKey
-   * Represents the profile id or the user email for which the data should be filtered.
+   * Represents the profiles id or the user email for which the data should be filtered.
    * @param string $date
    * Represents the date in yyyy-mm-dd format for which the data is to be fetched.
    * @param array $optParams Optional parameters.

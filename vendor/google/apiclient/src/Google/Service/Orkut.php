@@ -1069,7 +1069,7 @@ class Google_Service_Orkut_Communities_Resource extends Google_Service_Resource
 {
 
   /**
-   * Retrieves the basic information (aka. profile) of a community.
+   * Retrieves the basic information (aka. profiles) of a community.
    * (communities.get)
    *
    * @param int $communityId
@@ -1218,7 +1218,7 @@ class Google_Service_Orkut_CommunityMembers_Resource extends Google_Service_Reso
   }
   /**
    * Lists members of a community. Use the pagination tokens to retrieve the full
-   * list; do not rely on the member count available in the community profile
+   * list; do not rely on the member count available in the community profiles
    * information to know when to stop iterating, as that count may be approximate.
    * (communityMembers.listCommunityMembers)
    *

@@ -391,7 +391,7 @@ class Google_Service_Dfareporting_DimensionValues_Resource extends Google_Servic
    * (dimensionValues.query)
    *
    * @param string $profileId
-   * The DFA user profile ID.
+   * The DFA user profiles ID.
    * @param Google_DimensionValueRequest $postBody
    * @param array $optParams Optional parameters.
    *
@@ -437,10 +437,10 @@ class Google_Service_Dfareporting_Files_Resource extends Google_Service_Resource
     return $this->call('get', array($params), "Google_Service_Dfareporting_DfareportingFile");
   }
   /**
-   * Lists files for a user profile. (files.listFiles)
+   * Lists files for a user profiles. (files.listFiles)
    *
    * @param string $profileId
-   * The DFA profile ID.
+   * The DFA profiles ID.
    * @param array $optParams Optional parameters.
    *
    * @opt_param string sortField
@@ -478,7 +478,7 @@ class Google_Service_Dfareporting_Reports_Resource extends Google_Service_Resour
    * Deletes a report by its ID. (reports.delete)
    *
    * @param string $profileId
-   * The DFA user profile ID.
+   * The DFA user profiles ID.
    * @param string $reportId
    * The ID of the report.
    * @param array $optParams Optional parameters.
@@ -493,7 +493,7 @@ class Google_Service_Dfareporting_Reports_Resource extends Google_Service_Resour
    * Retrieves a report by its ID. (reports.get)
    *
    * @param string $profileId
-   * The DFA user profile ID.
+   * The DFA user profiles ID.
    * @param string $reportId
    * The ID of the report.
    * @param array $optParams Optional parameters.
@@ -509,7 +509,7 @@ class Google_Service_Dfareporting_Reports_Resource extends Google_Service_Resour
    * Creates a report. (reports.insert)
    *
    * @param string $profileId
-   * The DFA user profile ID.
+   * The DFA user profiles ID.
    * @param Google_Report $postBody
    * @param array $optParams Optional parameters.
    * @return Google_Service_Dfareporting_Report
@@ -524,7 +524,7 @@ class Google_Service_Dfareporting_Reports_Resource extends Google_Service_Resour
    * Retrieves list of reports. (reports.listReports)
    *
    * @param string $profileId
-   * The DFA user profile ID.
+   * The DFA user profiles ID.
    * @param array $optParams Optional parameters.
    *
    * @opt_param string sortField
@@ -549,7 +549,7 @@ class Google_Service_Dfareporting_Reports_Resource extends Google_Service_Resour
    * Updates a report. This method supports patch semantics. (reports.patch)
    *
    * @param string $profileId
-   * The DFA user profile ID.
+   * The DFA user profiles ID.
    * @param string $reportId
    * The ID of the report.
    * @param Google_Report $postBody
@@ -566,7 +566,7 @@ class Google_Service_Dfareporting_Reports_Resource extends Google_Service_Resour
    * Runs a report. (reports.run)
    *
    * @param string $profileId
-   * The DFA profile ID.
+   * The DFA profiles ID.
    * @param string $reportId
    * The ID of the report.
    * @param array $optParams Optional parameters.
@@ -585,7 +585,7 @@ class Google_Service_Dfareporting_Reports_Resource extends Google_Service_Resour
    * Updates a report. (reports.update)
    *
    * @param string $profileId
-   * The DFA user profile ID.
+   * The DFA user profiles ID.
    * @param string $reportId
    * The ID of the report.
    * @param Google_Report $postBody
@@ -617,7 +617,7 @@ class Google_Service_Dfareporting_ReportsCompatibleFields_Resource extends Googl
    * report and user permissions. (compatibleFields.query)
    *
    * @param string $profileId
-   * The DFA user profile ID.
+   * The DFA user profiles ID.
    * @param Google_Report $postBody
    * @param array $optParams Optional parameters.
    * @return Google_Service_Dfareporting_CompatibleFields
@@ -644,7 +644,7 @@ class Google_Service_Dfareporting_ReportsFiles_Resource extends Google_Service_R
    * Retrieves a report file. (files.get)
    *
    * @param string $profileId
-   * The DFA profile ID.
+   * The DFA profiles ID.
    * @param string $reportId
    * The ID of the report.
    * @param string $fileId
@@ -662,7 +662,7 @@ class Google_Service_Dfareporting_ReportsFiles_Resource extends Google_Service_R
    * Lists files for a report. (files.listReportsFiles)
    *
    * @param string $profileId
-   * The DFA profile ID.
+   * The DFA profiles ID.
    * @param string $reportId
    * The ID of the parent report.
    * @param array $optParams Optional parameters.
@@ -697,10 +697,10 @@ class Google_Service_Dfareporting_UserProfiles_Resource extends Google_Service_R
 {
 
   /**
-   * Gets one user profile by ID. (userProfiles.get)
+   * Gets one user profiles by ID. (userProfiles.get)
    *
    * @param string $profileId
-   * The user profile ID.
+   * The user profiles ID.
    * @param array $optParams Optional parameters.
    * @return Google_Service_Dfareporting_UserProfile
    */

@@ -392,7 +392,7 @@ class CI_Output {
 	 * Display Output
 	 *
 	 * Processes and sends finalized output data to the browser along
-	 * with any server headers and profile data. It also stops benchmark
+	 * with any server headers and profiles data. It also stops benchmark
 	 * timers so the page rendering speed and memory usage can be shown.
 	 *
 	 * Note: All "view" data is automatically put into $this->final_output
@@ -498,7 +498,7 @@ class CI_Output {
 
 		// --------------------------------------------------------------------
 
-		// Do we need to generate profile data?
+		// Do we need to generate profiles data?
 		// If so, load the Profile class and run it.
 		if ($this->enable_profiler === TRUE)
 		{
@@ -509,7 +509,7 @@ class CI_Output {
 			}
 
 			// If the output data contains closing </body> and </html> tags
-			// we will remove them and add them back after we insert the profile data
+			// we will remove them and add them back after we insert the profiles data
 			$output = preg_replace('|</body>.*?</html>|is', '', $output, -1, $count).$CI->profiler->run();
 			if ($count > 0)
 			{

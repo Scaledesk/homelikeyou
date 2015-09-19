@@ -31,14 +31,14 @@
  */
 class Google_Service_Plus extends Google_Service
 {
-  /** Know your basic profile info and list of people in your circles.. */
+  /** Know your basic profiles info and list of people in your circles.. */
   const PLUS_LOGIN = "https://www.googleapis.com/auth/plus.login";
   /** Know who you are on Google. */
   const PLUS_ME = "https://www.googleapis.com/auth/plus.me";
   /** View your email address. */
   const USERINFO_EMAIL = "https://www.googleapis.com/auth/userinfo.email";
-  /** View your basic profile info. */
-  const USERINFO_PROFILE = "https://www.googleapis.com/auth/userinfo.profile";
+  /** View your basic profiles info. */
+  const USERINFO_PROFILE = "https://www.googleapis.com/auth/userinfo.profiles";
 
   public $activities;
   public $comments;
@@ -551,12 +551,12 @@ class Google_Service_Plus_People_Resource extends Google_Service_Resource
 {
 
   /**
-   * Get a person's profile. If your app uses scope
+   * Get a person's profiles. If your app uses scope
    * https://www.googleapis.com/auth/plus.login, this method is guaranteed to
    * return ageRange and language. (people.get)
    *
    * @param string $userId
-   * The ID of the person to get the profile for. The special value "me" can be used to indicate the
+   * The ID of the person to get the profiles for. The special value "me" can be used to indicate the
     * authenticated user.
    * @param array $optParams Optional parameters.
    * @return Google_Service_Plus_Person

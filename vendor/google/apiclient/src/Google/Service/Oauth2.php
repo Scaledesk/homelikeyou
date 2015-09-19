@@ -31,14 +31,14 @@
  */
 class Google_Service_Oauth2 extends Google_Service
 {
-  /** Know your basic profile info and list of people in your circles.. */
+  /** Know your basic profiles info and list of people in your circles.. */
   const PLUS_LOGIN = "https://www.googleapis.com/auth/plus.login";
   /** Know who you are on Google. */
   const PLUS_ME = "https://www.googleapis.com/auth/plus.me";
   /** View your email address. */
   const USERINFO_EMAIL = "https://www.googleapis.com/auth/userinfo.email";
-  /** View your basic profile info. */
-  const USERINFO_PROFILE = "https://www.googleapis.com/auth/userinfo.profile";
+  /** View your basic profiles info. */
+  const USERINFO_PROFILE = "https://www.googleapis.com/auth/userinfo.profiles";
 
   public $userinfo;
   public $userinfo_v2_me;
