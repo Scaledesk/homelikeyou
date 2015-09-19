@@ -15,10 +15,8 @@ class Wallet extends MX_Controller{
         if(isAdmin()||hasPermission('Wallet.Content.CRUD')){
             if(strtolower( $_SERVER['REQUEST_METHOD'] ) == 'post'){
                 if($todo='Wltad007'){
-                echo "<pre/>";
-                    print_r($this->input->post());
-                    $this->_doWalletTransaction(strtolower($this->input->post('transaction_type')),$this->input->post())?setInformUser('success','Transaction done successfully'):setInformUser('error','Transaction done successfully');
-                    $this->load->view('index');
+                    $this->_doWalletTransaction(strtolower($this->input->post('transaction_type')),$this->input->post())?setInformUser('success','Transaction done successfully'):setInformUser('error','Some Error Occurred or Insufficient Balance in case of Debit');
+                    redirect('wallet');
                 }else{
                     //nothing set flash message invalid request
                 }
@@ -55,6 +53,5 @@ class Wallet extends MX_Controller{
                 break;
             }
         }
-
     }
 }

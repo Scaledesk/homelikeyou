@@ -146,13 +146,20 @@ class Mdl_wallet extends CI_Model{
                 $this->setTransactionDescription(func_get_arg(1)['transaction_description']);
                 break;
             }
+            case'create_wallet':{
+                $this->setWalletId(func_get_arg(1));
+                $this->setWalletAmount(0);
+                $this->setTransactionDescription('Create user wallet with zero balance');
+                $this->setTransactionType(strtolower(Wallet_transaction_type::CREDIT));
+                break;
+            }
             default:break;
         }
     }
 
     public function doWalletTransaction(){
         $this->_validate();
-        if($wallet_amount=$this->db->where('hlu_users_wallet_id',$this->getWalletId())->select(array('hlu_users_wallet_amount'))->get('hlu_users_wallet')->result_array()){
+        $wallet_amount=$this->db->where('hlu_users_wallet_id',$this->getWalletId())->select(array('hlu_users_wallet_amount'))->get('hlu_users_wallet')->result_array();
             $this->setWalletAmount($wallet_amount[0]['hlu_users_wallet_amount']);
             switch(func_get_arg(0)){
                 case strtolower(Wallet_transaction_type::CREDIT):{
@@ -169,11 +176,10 @@ class Mdl_wallet extends CI_Model{
                     return $this->db->trans_status()?true:false;
                     break;
                      }
-
                 case strtolower(Wallet_transaction_type::DEBIT):{
                     if($this->getWalletAmount()<$this->getTransactionAmount())
                     {
-                        setInformUser('error','Insufficient Balance!');
+                        echo $this->getWalletAmount();
                         return false;
                         break;
                     }else{
@@ -191,34 +197,28 @@ class Mdl_wallet extends CI_Model{
                         break;
                     }
                 }
-            }
-        }else{
-            $this->db->trans_start();
-            $this->db->insert('hlu_users_wallet',[
-                'hlu_users_wallet_id'=>$this->getWalletId(),
-                'hlu_users_wallet_amount'=>0
-            ]);
-            $this->db->insert('hlu_wallet_transactions', [
-                'hlu_wallet_transactions_wallet_id' => $this->getWalletId(),
-                'hlu_wallet_transactions_description' => 'Create user wallet with zero balance',
-                'hlu_wallet_transactions_transaction_type' => strtolower(Wallet_transaction_type::CREDIT),
-                'hlu_wallet_transactions_transaction_amount' => 0
-            ]);
-            $this->db->trans_complete();
-            if($this->db->trans_complete()){
-                $this->doWalletTransaction(func_get_arg(0));
-            }else{
-                setInformUser('error','Some Error Occurred! Try Again');
-                return false;
+                default : break;
             }
         }
-
-    }
     private function _validate()
     {
         $this->setWalletId($this->security->xss_clean($this->getWalletId()));
         $this->setTransactionAmount($this->security->xss_clean($this->getTransactionAmount()));
         $this->setTransactionType($this->security->xss_clean($this->getTransactionType()));
         $this->setTransactionDescription($this->security->xss_clean($this->getTransactionDescription()));
+    }
+    public function createWallet(){
+        $this->db->trans_start();
+        $this->db->insert('hlu_users_wallet',[
+            'hlu_users_wallet_id'=>$this->getWalletId(),
+            'hlu_users_wallet_amount'=>$this->getWalletAmount()
+        ]);
+        $this->db->insert('hlu_wallet_transactions', [
+            'hlu_wallet_transactions_wallet_id' => $this->getWalletId(),
+            'hlu_wallet_transactions_description' => $this->getTransactionDescription(),
+            'hlu_wallet_transactions_transaction_type' => $this->getTransactionType(),
+            'hlu_wallet_transactions_transaction_amount' => $this->getWalletAmount()
+        ]);
+        $this->db->trans_complete();
     }
 }

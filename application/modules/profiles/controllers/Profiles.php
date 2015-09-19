@@ -84,12 +84,9 @@ function index()
 		}
 
 	}
-
-
 	private  function _toArray(){
           $this->Mdl_profiles->setData($this->session->userdata['user_data']['user_id']);
 		  $data['profilesData']=$this->Mdl_profiles->getProfileData($this->session->userdata['user_data']['user_id']);
 		 return $data;
 	}
-
 }
