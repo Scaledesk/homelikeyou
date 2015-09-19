@@ -33,9 +33,9 @@ class Google_Service_Games extends Google_Service
 {
   /** View and manage its own configuration data in your Google Drive. */
   const DRIVE_APPDATA = "https://www.googleapis.com/auth/drive.appdata";
-  /** Share your Google+ profiles information and view and manage your game activity. */
+  /** Share your Google+ profile information and view and manage your game activity. */
   const GAMES = "https://www.googleapis.com/auth/games";
-  /** Know your basic profiles info and list of people in your circles.. */
+  /** Know your basic profile info and list of people in your circles.. */
   const PLUS_LOGIN = "https://www.googleapis.com/auth/plus.login";
 
   public $achievementDefinitions;

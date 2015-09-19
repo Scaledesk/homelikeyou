@@ -1883,11 +1883,11 @@ class Google_Service_Analytics_DataGa_Resource extends Google_Service_Resource
 {
 
   /**
-   * Returns Analytics data for a view (profiles). (ga.get)
+   * Returns Analytics data for a view (profile). (ga.get)
    *
    * @param string $ids
    * Unique table ID for retrieving Analytics data. Table ID is of the form ga:XXXX, where XXXX is
-    * the Analytics view (profiles) ID.
+    * the Analytics view (profile) ID.
    * @param string $startDate
    * Start date for fetching Analytics data. Requests can specify a start date formatted as YYYY-MM-
     * DD, or as a relative date (e.g., today, yesterday, or 7daysAgo). The default value is 7daysAgo.
@@ -1939,11 +1939,11 @@ class Google_Service_Analytics_DataMcf_Resource extends Google_Service_Resource
 {
 
   /**
-   * Returns Analytics Multi-Channel Funnels data for a view (profiles). (mcf.get)
+   * Returns Analytics Multi-Channel Funnels data for a view (profile). (mcf.get)
    *
    * @param string $ids
    * Unique table ID for retrieving Analytics data. Table ID is of the form ga:XXXX, where XXXX is
-    * the Analytics view (profiles) ID.
+    * the Analytics view (profile) ID.
    * @param string $startDate
    * Start date for fetching Analytics data. Requests can specify a start date formatted as YYYY-MM-
     * DD, or as a relative date (e.g., today, yesterday, or 7daysAgo). The default value is 7daysAgo.
@@ -1990,11 +1990,11 @@ class Google_Service_Analytics_DataRealtime_Resource extends Google_Service_Reso
 {
 
   /**
-   * Returns real time data for a view (profiles). (realtime.get)
+   * Returns real time data for a view (profile). (realtime.get)
    *
    * @param string $ids
    * Unique table ID for retrieving real time data. Table ID is of the form ga:XXXX, where XXXX is
-    * the Analytics view (profiles) ID.
+    * the Analytics view (profile) ID.
    * @param string $metrics
    * A comma-separated list of real time metrics. E.g., 'rt:activeUsers'. At least one metric must be
     * specified.
@@ -2613,7 +2613,7 @@ class Google_Service_Analytics_ManagementGoals_Resource extends Google_Service_R
    * Web property ID to retrieve goals for. Can either be a specific web property ID or '~all', which
     * refers to all the web properties that user has access to.
    * @param string $profileId
-   * View (Profile) ID to retrieve goals for. Can either be a specific view (profiles) ID or '~all',
+   * View (Profile) ID to retrieve goals for. Can either be a specific view (profile) ID or '~all',
     * which refers to all the views (profiles) that user has access to.
    * @param array $optParams Optional parameters.
    *
@@ -2631,7 +2631,7 @@ class Google_Service_Analytics_ManagementGoals_Resource extends Google_Service_R
     return $this->call('list', array($params), "Google_Service_Analytics_Goals");
   }
   /**
-   * Updates an existing view (profiles). This method supports patch semantics.
+   * Updates an existing view (profile). This method supports patch semantics.
    * (goals.patch)
    *
    * @param string $accountId
@@ -2653,7 +2653,7 @@ class Google_Service_Analytics_ManagementGoals_Resource extends Google_Service_R
     return $this->call('patch', array($params), "Google_Service_Analytics_Goal");
   }
   /**
-   * Updates an existing view (profiles). (goals.update)
+   * Updates an existing view (profile). (goals.update)
    *
    * @param string $accountId
    * Account ID to update the goal.
@@ -2686,16 +2686,16 @@ class Google_Service_Analytics_ManagementProfileFilterLinks_Resource extends Goo
 {
 
   /**
-   * Delete a profiles filter link. (profileFilterLinks.delete)
+   * Delete a profile filter link. (profileFilterLinks.delete)
    *
    * @param string $accountId
-   * Account ID to which the profiles filter link belongs.
+   * Account ID to which the profile filter link belongs.
    * @param string $webPropertyId
-   * Web property Id to which the profiles filter link belongs.
+   * Web property Id to which the profile filter link belongs.
    * @param string $profileId
    * Profile ID to which the filter link belongs.
    * @param string $linkId
-   * ID of the profiles filter link to delete.
+   * ID of the profile filter link to delete.
    * @param array $optParams Optional parameters.
    */
   public function delete($accountId, $webPropertyId, $profileId, $linkId, $optParams = array())
@@ -2705,16 +2705,16 @@ class Google_Service_Analytics_ManagementProfileFilterLinks_Resource extends Goo
     return $this->call('delete', array($params));
   }
   /**
-   * Returns a single profiles filter link. (profileFilterLinks.get)
+   * Returns a single profile filter link. (profileFilterLinks.get)
    *
    * @param string $accountId
-   * Account ID to retrieve profiles filter link for.
+   * Account ID to retrieve profile filter link for.
    * @param string $webPropertyId
-   * Web property Id to retrieve profiles filter link for.
+   * Web property Id to retrieve profile filter link for.
    * @param string $profileId
    * Profile ID to retrieve filter link for.
    * @param string $linkId
-   * ID of the profiles filter link.
+   * ID of the profile filter link.
    * @param array $optParams Optional parameters.
    * @return Google_Service_Analytics_ProfileFilterLink
    */
@@ -2725,12 +2725,12 @@ class Google_Service_Analytics_ManagementProfileFilterLinks_Resource extends Goo
     return $this->call('get', array($params), "Google_Service_Analytics_ProfileFilterLink");
   }
   /**
-   * Create a new profiles filter link. (profileFilterLinks.insert)
+   * Create a new profile filter link. (profileFilterLinks.insert)
    *
    * @param string $accountId
-   * Account ID to create profiles filter link for.
+   * Account ID to create profile filter link for.
    * @param string $webPropertyId
-   * Web property Id to create profiles filter link for.
+   * Web property Id to create profile filter link for.
    * @param string $profileId
    * Profile ID to create filter link for.
    * @param Google_ProfileFilterLink $postBody
@@ -2744,21 +2744,21 @@ class Google_Service_Analytics_ManagementProfileFilterLinks_Resource extends Goo
     return $this->call('insert', array($params), "Google_Service_Analytics_ProfileFilterLink");
   }
   /**
-   * Lists all profiles filter links for a profiles.
+   * Lists all profile filter links for a profile.
    * (profileFilterLinks.listManagementProfileFilterLinks)
    *
    * @param string $accountId
-   * Account ID to retrieve profiles filter links for.
+   * Account ID to retrieve profile filter links for.
    * @param string $webPropertyId
-   * Web property Id for profiles filter links for. Can either be a specific web property ID or
+   * Web property Id for profile filter links for. Can either be a specific web property ID or
     * '~all', which refers to all the web properties that user has access to.
    * @param string $profileId
-   * Profile ID to retrieve filter links for. Can either be a specific profiles ID or '~all', which
+   * Profile ID to retrieve filter links for. Can either be a specific profile ID or '~all', which
     * refers to all the profiles that user has access to.
    * @param array $optParams Optional parameters.
    *
    * @opt_param int max-results
-   * The maximum number of profiles filter links to include in this response.
+   * The maximum number of profile filter links to include in this response.
    * @opt_param int start-index
    * An index of the first entity to retrieve. Use this parameter as a pagination mechanism along
     * with the max-results parameter.
@@ -2771,17 +2771,17 @@ class Google_Service_Analytics_ManagementProfileFilterLinks_Resource extends Goo
     return $this->call('list', array($params), "Google_Service_Analytics_ProfileFilterLinks");
   }
   /**
-   * Update an existing profiles filter link. This method supports patch semantics.
+   * Update an existing profile filter link. This method supports patch semantics.
    * (profileFilterLinks.patch)
    *
    * @param string $accountId
-   * Account ID to which profiles filter link belongs.
+   * Account ID to which profile filter link belongs.
    * @param string $webPropertyId
-   * Web property Id to which profiles filter link belongs
+   * Web property Id to which profile filter link belongs
    * @param string $profileId
    * Profile ID to which filter link belongs
    * @param string $linkId
-   * ID of the profiles filter link to be updated.
+   * ID of the profile filter link to be updated.
    * @param Google_ProfileFilterLink $postBody
    * @param array $optParams Optional parameters.
    * @return Google_Service_Analytics_ProfileFilterLink
@@ -2793,16 +2793,16 @@ class Google_Service_Analytics_ManagementProfileFilterLinks_Resource extends Goo
     return $this->call('patch', array($params), "Google_Service_Analytics_ProfileFilterLink");
   }
   /**
-   * Update an existing profiles filter link. (profileFilterLinks.update)
+   * Update an existing profile filter link. (profileFilterLinks.update)
    *
    * @param string $accountId
-   * Account ID to which profiles filter link belongs.
+   * Account ID to which profile filter link belongs.
    * @param string $webPropertyId
-   * Web property Id to which profiles filter link belongs
+   * Web property Id to which profile filter link belongs
    * @param string $profileId
    * Profile ID to which filter link belongs
    * @param string $linkId
-   * ID of the profiles filter link to be updated.
+   * ID of the profile filter link to be updated.
    * @param Google_ProfileFilterLink $postBody
    * @param array $optParams Optional parameters.
    * @return Google_Service_Analytics_ProfileFilterLink
@@ -2826,7 +2826,7 @@ class Google_Service_Analytics_ManagementProfileUserLinks_Resource extends Googl
 {
 
   /**
-   * Removes a user from the given view (profiles). (profileUserLinks.delete)
+   * Removes a user from the given view (profile). (profileUserLinks.delete)
    *
    * @param string $accountId
    * Account ID to delete the user link for.
@@ -2845,7 +2845,7 @@ class Google_Service_Analytics_ManagementProfileUserLinks_Resource extends Googl
     return $this->call('delete', array($params));
   }
   /**
-   * Adds a new user to the given view (profiles). (profileUserLinks.insert)
+   * Adds a new user to the given view (profile). (profileUserLinks.insert)
    *
    * @param string $accountId
    * Account ID to create the user link for.
@@ -2864,23 +2864,23 @@ class Google_Service_Analytics_ManagementProfileUserLinks_Resource extends Googl
     return $this->call('insert', array($params), "Google_Service_Analytics_EntityUserLink");
   }
   /**
-   * Lists profiles-user links for a given view (profiles).
+   * Lists profile-user links for a given view (profile).
    * (profileUserLinks.listManagementProfileUserLinks)
    *
    * @param string $accountId
-   * Account ID which the given view (profiles) belongs to.
+   * Account ID which the given view (profile) belongs to.
    * @param string $webPropertyId
-   * Web Property ID which the given view (profiles) belongs to. Can either be a specific web property
+   * Web Property ID which the given view (profile) belongs to. Can either be a specific web property
     * ID or '~all', which refers to all the web properties that user has access to.
    * @param string $profileId
-   * View (Profile) ID to retrieve the profiles-user links for. Can either be a specific profiles ID or
+   * View (Profile) ID to retrieve the profile-user links for. Can either be a specific profile ID or
     * '~all', which refers to all the profiles that user has access to.
    * @param array $optParams Optional parameters.
    *
    * @opt_param int max-results
-   * The maximum number of profiles-user links to include in this response.
+   * The maximum number of profile-user links to include in this response.
    * @opt_param int start-index
-   * An index of the first profiles-user link to retrieve. Use this parameter as a pagination
+   * An index of the first profile-user link to retrieve. Use this parameter as a pagination
     * mechanism along with the max-results parameter.
    * @return Google_Service_Analytics_EntityUserLinks
    */
@@ -2891,7 +2891,7 @@ class Google_Service_Analytics_ManagementProfileUserLinks_Resource extends Googl
     return $this->call('list', array($params), "Google_Service_Analytics_EntityUserLinks");
   }
   /**
-   * Updates permissions for an existing user on the given view (profiles).
+   * Updates permissions for an existing user on the given view (profile).
    * (profileUserLinks.update)
    *
    * @param string $accountId
@@ -2925,14 +2925,14 @@ class Google_Service_Analytics_ManagementProfiles_Resource extends Google_Servic
 {
 
   /**
-   * Deletes a view (profiles). (profiles.delete)
+   * Deletes a view (profile). (profiles.delete)
    *
    * @param string $accountId
-   * Account ID to delete the view (profiles) for.
+   * Account ID to delete the view (profile) for.
    * @param string $webPropertyId
-   * Web property ID to delete the view (profiles) for.
+   * Web property ID to delete the view (profile) for.
    * @param string $profileId
-   * ID of the view (profiles) to be deleted.
+   * ID of the view (profile) to be deleted.
    * @param array $optParams Optional parameters.
    */
   public function delete($accountId, $webPropertyId, $profileId, $optParams = array())
@@ -2942,7 +2942,7 @@ class Google_Service_Analytics_ManagementProfiles_Resource extends Google_Servic
     return $this->call('delete', array($params));
   }
   /**
-   * Gets a view (profiles) to which the user has access. (profiles.get)
+   * Gets a view (profile) to which the user has access. (profiles.get)
    *
    * @param string $accountId
    * Account ID to retrieve the goal for.
@@ -2960,12 +2960,12 @@ class Google_Service_Analytics_ManagementProfiles_Resource extends Google_Servic
     return $this->call('get', array($params), "Google_Service_Analytics_Profile");
   }
   /**
-   * Create a new view (profiles). (profiles.insert)
+   * Create a new view (profile). (profiles.insert)
    *
    * @param string $accountId
-   * Account ID to create the view (profiles) for.
+   * Account ID to create the view (profile) for.
    * @param string $webPropertyId
-   * Web property ID to create the view (profiles) for.
+   * Web property ID to create the view (profile) for.
    * @param Google_Profile $postBody
    * @param array $optParams Optional parameters.
    * @return Google_Service_Analytics_Profile
@@ -3002,15 +3002,15 @@ class Google_Service_Analytics_ManagementProfiles_Resource extends Google_Servic
     return $this->call('list', array($params), "Google_Service_Analytics_Profiles");
   }
   /**
-   * Updates an existing view (profiles). This method supports patch semantics.
+   * Updates an existing view (profile). This method supports patch semantics.
    * (profiles.patch)
    *
    * @param string $accountId
-   * Account ID to which the view (profiles) belongs
+   * Account ID to which the view (profile) belongs
    * @param string $webPropertyId
-   * Web property ID to which the view (profiles) belongs
+   * Web property ID to which the view (profile) belongs
    * @param string $profileId
-   * ID of the view (profiles) to be updated.
+   * ID of the view (profile) to be updated.
    * @param Google_Profile $postBody
    * @param array $optParams Optional parameters.
    * @return Google_Service_Analytics_Profile
@@ -3022,14 +3022,14 @@ class Google_Service_Analytics_ManagementProfiles_Resource extends Google_Servic
     return $this->call('patch', array($params), "Google_Service_Analytics_Profile");
   }
   /**
-   * Updates an existing view (profiles). (profiles.update)
+   * Updates an existing view (profile). (profiles.update)
    *
    * @param string $accountId
-   * Account ID to which the view (profiles) belongs
+   * Account ID to which the view (profile) belongs
    * @param string $webPropertyId
-   * Web property ID to which the view (profiles) belongs
+   * Web property ID to which the view (profile) belongs
    * @param string $profileId
-   * ID of the view (profiles) to be updated.
+   * ID of the view (profile) to be updated.
    * @param Google_Profile $postBody
    * @param array $optParams Optional parameters.
    * @return Google_Service_Analytics_Profile
@@ -3133,7 +3133,7 @@ class Google_Service_Analytics_ManagementUnsampledReports_Resource extends Googl
    * Web property ID to retrieve unsampled reports for. Must be a specific web property ID, ~all is
     * not supported.
    * @param string $profileId
-   * View (Profile) ID to retrieve unsampled reports for. Must be a specific view (profiles) ID, ~all
+   * View (Profile) ID to retrieve unsampled reports for. Must be a specific view (profile) ID, ~all
     * is not supported.
    * @param array $optParams Optional parameters.
    *
@@ -3419,7 +3419,7 @@ class Google_Service_Analytics_ManagementWebproperties_Resource extends Google_S
   /**
    * Create a new property if the account has fewer than 20 properties. Web
    * properties are visible in the Google Analytics interface only if they have at
-   * least one profiles. (webproperties.insert)
+   * least one profile. (webproperties.insert)
    *
    * @param string $accountId
    * Account ID to create the web property for.

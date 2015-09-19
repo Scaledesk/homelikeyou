@@ -489,7 +489,7 @@ class Google_Client
    * Will append any scopes not previously requested to the scope parameter.
    * A single string will be treated as a scope to request. An array of strings
    * will each be appended.
-   * @param $scope_or_scopes string|array e.g. "profiles"
+   * @param $scope_or_scopes string|array e.g. "profile"
    */
   public function addScope($scope_or_scopes)
   {
