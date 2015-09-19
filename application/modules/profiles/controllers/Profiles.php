@@ -7,7 +7,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * Date: 17/9/15
  * Time: 3:00 PM
  */
-Class Profile extends MX_Controller{
+Class Profiles extends MX_Controller{
 
 
 function __construct(){
@@ -24,15 +24,15 @@ function index()
 	if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
 		$to_do_with_post=$_POST['todo'];
 		if ($to_do_with_post=="hlm8734"){
-         echo $this->_updateProfile('step1',$this->input->post())?"your profile inserted sucessfully":"sorry, some error occured";
+         echo $this->_updateProfile('step1',$this->input->post())?"your profiles inserted sucessfully":"sorry, some error occured";
 		}
 		elseif($to_do_with_post=="hlm34523")
 		{
-			echo $this->_updateProfile('step2',$this->input->post())?"Your profile update sucessfully":"sorry, some error occured";
+			echo $this->_updateProfile('step2',$this->input->post())?"Your profiles update sucessfully":"sorry, some error occured";
 		}
 		elseif ($to_do_with_post=="hlm23413")
 		{
-			echo $this->_updateProfile('step3',$this->input->post())?"Your profile update sucessfully":"sorry, some error occured";
+			echo $this->_updateProfile('step3',$this->input->post())?"Your profiles update sucessfully":"sorry, some error occured";
 		}
 
 	}
@@ -57,7 +57,7 @@ function index()
 							break;
 			case 'step2':
 
-							$config['upload_path'] = APPPATH.'modules/profile/upload/';
+							$config['upload_path'] = APPPATH.'modules/profiles/upload/';
 
 				            $config['allowed_types'] = 'png|jpeg|gif|jpg';
 							$config['max_size'] = '2048000';

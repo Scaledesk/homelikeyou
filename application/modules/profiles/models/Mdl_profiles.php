@@ -6,9 +6,9 @@
  * Time: 3:05 PM
  */
 
-class Mdl_profile extends CI_Model{
+class Mdl_profiles extends CI_Model{
 
-    private $profile_id;
+    private $profiles_id;
     private $first_name;
     private $last_name;
     private $image;
@@ -41,17 +41,17 @@ class Mdl_profile extends CI_Model{
     /**
      * @return mixed
      */
-    public function getProfileId()
+    public function getProfilesId()
     {
-        return $this->profile_id;
+        return $this->profiles_id;
     }
 
     /**
-     * @param mixed $profile_id
+     * @param mixed $profiles_id
      */
-    public function setProfileId($profile_id)
+    public function setProfilesId($profiles_id)
     {
-        $this->profile_id = $profile_id;
+        $this->profiles_id = $profiles_id;
     }
 
     /**
@@ -154,7 +154,7 @@ class Mdl_profile extends CI_Model{
         switch(func_get_arg(0)){
             case "step1":{
                 //echo func_get_arg(3);
-                $this->setProfileId(func_get_arg(1));
+                $this->setProfilesId(func_get_arg(1));
                 $this->setFirstName(func_get_arg(2));
                 $this->setLastName(func_get_arg(3));
                 break;
@@ -163,7 +163,7 @@ class Mdl_profile extends CI_Model{
                 //echo func_get_arg(1);
 
                 $this->setImage(func_get_arg(1));
-                $this->setProfileId(func_get_arg(2));
+                $this->setProfilesId(func_get_arg(2));
                  break;
                   }
 
@@ -172,7 +172,7 @@ class Mdl_profile extends CI_Model{
                 $this->setPin(func_get_arg(2));
                 $this->setState(func_get_arg(3));
                 $this->setCountry(func_get_arg(4));
-                $this->setProfileId(func_get_arg(5));
+                $this->setProfilesId(func_get_arg(5));
                 break;
                }
             default:break;
@@ -194,10 +194,10 @@ class Mdl_profile extends CI_Model{
                                     ];
 //                                    echo '<pre/>';
 //                                    print_r($data);
-                                    return $this->db->where(array('hlu_profiles_id'=>$this->getProfileId()))->update('hlu_profiles', $data) ? true : false;
+                                    return $this->db->where(array('hlu_profiles_id'=>$this->getProfilesId()))->update('hlu_profiles', $data) ? true : false;
                                 }else{
                                     $data = [
-                                        'hlu_profiles_id' => $this->getProfileId(),
+                                        'hlu_profiles_id' => $this->getProfilesId(),
                                         'hlu_profiles_first_name' => $this->getFirstName(),
                                         'hlu_profiles_last_name' => $this->getLastName()
                                     ];
@@ -211,8 +211,8 @@ class Mdl_profile extends CI_Model{
                           $data = [
                                 'hlu_profiles_image'=> $this->getImage()
                           ];
-                            $this->getProfileId();
-                           return $this->db->where(array('hlu_profiles_id'=>$this->getProfileId()/*2*/))->update('hlu_profiles', $data) ? true : false;
+                            $this->getProfilesId();
+                           return $this->db->where(array('hlu_profiles_id'=>$this->getProfilesId()/*2*/))->update('hlu_profiles', $data) ? true : false;
                          }
                          break;
             case 'step3':{
@@ -224,7 +224,7 @@ class Mdl_profile extends CI_Model{
                               'hlu_profiles_country'=>$this->getCountry()
 
                           ];
-                           return $this->db->where(array('hlu_profiles_id'=>$this->getProfileId()/*2*/))->update('hlu_profiles', $data) ? true : false;
+                           return $this->db->where(array('hlu_profiles_id'=>$this->getProfilesId()/*2*/))->update('hlu_profiles', $data) ? true : false;
 
                    break;
             }
@@ -259,6 +259,6 @@ class Mdl_profile extends CI_Model{
 
     private function checkProfileExist()
     {
-        return $this->db->where('hlu_profiles_id',$this->getProfileId())->select('hlu_profiles_id')->get('hlu_profiles')->result_array()?true:false;
+        return $this->db->where('hlu_profiles_id',$this->getProfilesId())->select('hlu_profiles_id')->get('hlu_profiles')->result_array()?true:false;
     }
 }
