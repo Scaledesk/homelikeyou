@@ -5,9 +5,9 @@
  * Date: 9/17/2015
  * Time: 4:23 PM
  */
-
+print_r($profiles_data);
 echo form_open('profiles'); ?>
-      <input type="text"  name="first_name" placeholder="First Name" > </br>
+      <input type="text"  name="first_name" placeholder=" First Name<?php /*echo $profiles_data[profiles_first_name];*/?>" > </br>
       <input type="text"  name="last_name" placeholder="Last Name"> </br>
      <input type="hidden"  name="todo" value="hlm8734" > </br>
 

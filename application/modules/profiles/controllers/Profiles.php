@@ -38,7 +38,9 @@ function index()
 	}
 
 	else {
-		$this->load->view('index.php');
+		$data['profiles_data']=$this->_getProfileData();
+		$this->load->view('index.php',$data);
+		//$this->_getProfileData();
 	    }
 }
 
@@ -86,9 +88,11 @@ function index()
 	}
 
 
-	private  function _toArray(){
-          $this->Mdl_profiles->setData($this->session->userdata['user_data']['user_id']);
-		  $data['profilesData']=$this->Mdl_profiles->getProfileData($this->session->userdata['user_data']['user_id']);
+	private  function _getProfileData(){
+		 $todo="get_profiles_data";
+
+          $this->Mdl_profiles->setData($todo,$this->session->userdata['user_data']['user_id']);
+		  $data['profiles_data']=$this->Mdl_profiles->toArray();
 		 return $data;
 	}
 

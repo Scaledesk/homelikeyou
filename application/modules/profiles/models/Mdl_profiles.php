@@ -175,6 +175,11 @@ class Mdl_profiles extends CI_Model{
                 $this->setProfilesId(func_get_arg(5));
                 break;
                }
+            case'get_profiles_data':{
+                $this->setProfilesId(func_get_arg(1));
+
+                break;
+               }
             default:break;
         }
     }
@@ -186,7 +191,7 @@ class Mdl_profiles extends CI_Model{
         switch(func_get_arg(0)){
             case 'step1': {
                                 $this->_validate(func_get_arg(0));
-                                if($this->checkProfileExist()){
+                                if($this->_checkProfileExist()){
 
                                     $data = [
                                         'hlu_profiles_first_name' => $this->getFirstName(),
@@ -257,8 +262,29 @@ class Mdl_profiles extends CI_Model{
         }
     }
 
-    private function checkProfileExist()
+    private function _checkProfileExist()
     {
         return $this->db->where('hlu_profiles_id',$this->getProfilesId())->select('hlu_profiles_id')->get('hlu_profiles')->result_array()?true:false;
+    }
+
+
+    public function toArray(){
+       // $query=$this->db->query("select * from hlu_profiles where hlu_profiles_id='$hlu_profiles_id'")->result();
+         // echo $this->getProfilesId();
+         $this->db->where("hlu_profiles_id", 8);
+         $query=$this->db->get("hlu_profiles")->result_array();
+        // print_r($query);
+        $data=array(
+            'profiles_id'=>$query[0]['hlu_profiles_id'],
+            'profiles_first_name'=>$query[0]['hlu_profiles_first_name'],
+            'profiles_last_name'=>$query[0]['hlu_profiles_last_name'],
+            'profiles_image'=>$query[0]['hlu_profiles_image'],
+            'profiles_address'=>$query[0]['hlu_profiles_address'],
+            'profiles_pin'=>$query[0]['hlu_profiles_pin'],
+            'profiles_state'=>$query[0]['hlu_profiles_state'],
+            'profiles_country'=>$query[0]['hlu_profiles_country']
+        );
+
+      return $data;
     }
 }
