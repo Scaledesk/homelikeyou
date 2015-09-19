@@ -210,7 +210,7 @@ class Mdl_profile extends CI_Model{
                                 'hlu_profiles_image'=> $this->getImage()
                           ];
                             $this->getProfileId();
-                           return $this->db->where(array('hlu_profiles_id'=>/*$this->getProfileId()*/2))->update('hlu_profiles', $data) ? true : false;
+                           return $this->db->where(array('hlu_profiles_id'=>$this->getProfileId()/*2*/))->update('hlu_profiles', $data) ? true : false;
                          }
                          break;
             case 'step3':{

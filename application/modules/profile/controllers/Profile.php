@@ -52,7 +52,7 @@ function index()
 
 			case'step1':   /*echo '<pre/>' ;
 							print_r($data);*/
-							$this->Mdl_profile->setData($todo,"2"/*$this->session->userdata('user_id')*/,$data['first_name'],$data['last_name']);
+							$this->Mdl_profile->setData($todo,/*"2"*/$this->session->userdata('user_id'),$data['first_name'],$data['last_name']);
 							return $this->Mdl_profile->updateProfile($todo)?true:false;
 							break;
 			case 'step2':
