@@ -25,4 +25,20 @@ class Testapp extends MX_Controller{
         }
         return false;
     }
+    public function sendEmail(){
+        /*echo fsockopen('ssl://smtp.gmail.com', 465, $n, $s) ? 'connected' : $s;
+       die;*/
+        $this->email->from('tamyworld@gmail.com', 'Tushar');
+        $this->email->to('tusharagarwal7863@gmail.com');
+
+        $this->email->subject('Email Test after using database');
+        $this->email->message('Testing the email class after using database.');
+
+        if($this->email->send()){
+            echo 'email send successfully';
+        }else{
+           echo 'some error occurred';
+            echo $this->email->print_debugger();
+        }
+    }
 }
