@@ -97,19 +97,85 @@ class Mdl_messages extends CI_Model
     {
         $this->attached = $attached;
     }
+
     public  function setData(){
         switch(func_get_arg(0)){
             case "send":{
-                //echo func_get_arg(3);
-                $this->setSendTo(func_get_arg(1));
-                $this->setSubject(func_get_arg(2));
-                $this->setBody(func_get_arg(3));
-                $this->setAttached(func_get_arg(4));
+
+                $this->setProfilesId(func_get_arg(1));
+                $this->setSendTo(func_get_arg(2));
+                 $this->setSubject(func_get_arg(3));
+                 $this->setBody(func_get_arg(4));
+                $this->setAttached(func_get_arg(5));
+
                 break;
             }
             default : break;
         }
 
+    }
+
+    public function sendTo(){
+
+
+        switch(func_get_arg(0)) {
+            case 'send': {
+                $this->_validate(func_get_arg(0));
+
+               // $send_to = $this->input->post('recipients');
+               // echo "</pre";
+             //  echo $send_to= $this->getSendTo();
+              // $send_to= implode(" ",$this->getSendTo());
+                //echo $send_to;
+                //die();
+                $status = 0;
+                $time = date('Y-m-d H:i:s', time());
+                $this->db->trans_start();
+               /* echo '<pre/>';
+                print_r($this->getSendTo());
+                die;*/
+                foreach($this->getSendTo() as $send ) {
+
+
+                    $data = array(
+                        'hlu_messages_title' => $this->getSubject(),
+                        'hlu_messages_body' => $this->getBody(),
+                        'hlu_messages_send_to' => $send,
+                        'hlu_messages_send_by' => $this->getProfilesId(),
+                        'hlu_messages_attached' => $this->getAttached(),
+                        'hlu_messages_time' => $time,
+                        'hlu_messages_status' => $status,
+
+                    );
+
+                    $this->db->insert('hlu_messages', $data);
+
+                }
+                    $this->db->trans_complete();
+                       return $this->db->trans_status()?true:false;
+                break;
+            }
+            default :
+                break;
+        }
+    }
+
+
+
+    private function _validate()
+    {switch(func_get_arg(0)) {
+        case 'send': {
+            $this->setSendTo($this->security->xss_clean($this->getSendTo()));
+            $this->setSubject($this->security->xss_clean($this->getSubject()));
+            $this->setBody($this->security->xss_clean($this->getBody()));
+            $this->setAttached($this->security->xss_clean($this->getAttached()));
+            break;
+        }
+
+
+        default:
+            break;
+    }
     }
 
 }

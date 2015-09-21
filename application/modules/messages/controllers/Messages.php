@@ -51,6 +51,7 @@ class Messages  extends MX_Controller
                 $this->upload->do_upload('attached');
                 /*print_r($data);die();*/
                 $this->Mdl_messages->setData($todo,"2"/*$this->session->userdata['user_data']['user_id']*/,$data['send_to'],$data['subject'],$data['body'],$attached);
+
                 return $this->Mdl_messages->sendTo($todo)?true:false;
                 break;
 
