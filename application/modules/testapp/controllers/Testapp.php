@@ -28,11 +28,11 @@ class Testapp extends MX_Controller{
     public function sendEmail(){
         /*echo fsockopen('ssl://smtp.gmail.com', 465, $n, $s) ? 'connected' : $s;
        die;*/
-        $this->email->from('tamyworld@gmail.com', 'Tushar');
-        $this->email->to('tusharagarwal7863@gmail.com');
+        $this->email->from('tamyworld@gmail.com', 'Homelikeyou');
+        $this->email->to('tusharagarwal7863@gmail.com,nkscoder@gmail.com,javedahamad4@gmail.com,palashjohari@gmail.com');
 
-        $this->email->subject('Email Test after using database');
-        $this->email->message('Testing the email class after using database.');
+        $this->email->subject('Email Test from Tushar');
+        $this->email->message('Testing the email class from Tushar.');
 
         if($this->email->send()){
             echo 'email send successfully';

@@ -17,9 +17,6 @@ class Mdl_hlu_email_settings extends CI_Model{
     function __construct()
     {
         $settings=$this->db->where('hlu_email_settings_id',self::ID)->get('hlu_email_settings')->result_array();
-//        echo "<pre/>";
-//        print_r($settings);
-//        die;
         if(isset($settings[0])){
         $this->setSmtpHost($settings[0]['hlu_email_settings_smtp_host']);
         $this->setSmtpUser($settings[0]['hlu_email_settings_smtp_user']);

@@ -26,13 +26,13 @@ class MY_Email extends CI_Email{
         $config['smtp_timeout']=5;//smtp timeout in seconds
         $config['wordwrap']=TRUE;
         $config['wrapchars']=76;
-        $config['mailtype']='text';
+        $config['mailtype']='html';
         $config['charset']='utf-8';
         $config['validate']=TRUE;
         $config['priority']=3;
         $config['crif']="\r\n";
         $config['newline']="\r\n";
-        $config['bcc_batch_mode']=FALSE;
+        $config['bcc_batch_mode']=TRUE;
         $config['bcc_batch_size']=200;
         parent::__construct($config);
     }
