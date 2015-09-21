@@ -32,7 +32,7 @@ class MY_Email extends CI_Email{
         $config['priority']=3;
         $config['crif']="\r\n";
         $config['newline']="\r\n";
-        $config['bcc_batch_mode']=FALSE;
+        $config['bcc_batch_mode']=TRUE;
         $config['bcc_batch_size']=200;
         parent::__construct($config);
     }
