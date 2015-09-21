@@ -26,7 +26,7 @@ class MY_Email extends CI_Email{
         $config['smtp_timeout']=5;//smtp timeout in seconds
         $config['wordwrap']=TRUE;
         $config['wrapchars']=76;
-        $config['mailtype']='text';
+        $config['mailtype']='html';
         $config['charset']='utf-8';
         $config['validate']=TRUE;
         $config['priority']=3;
