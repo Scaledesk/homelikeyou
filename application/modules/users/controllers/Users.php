@@ -322,5 +322,90 @@ class Users extends MX_Controller{
         $this->Mdl_wallet->setData('create_wallet', $this->Mdl_users->getUserId());
         $this->Mdl_wallet->createWallet();
     }
+
+    Public function forgetPwd(){
+
+
+
+        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+
+              $email= $_POST['email'];
+            // echo (base_url().'users/forgotMail');
+            $this->Mdl_users->setData('get_email',$email);
+          if($this->Mdl_users->forgotPwd($email)){
+
+              $this->email->from('singhniteshbca@gmail.com', 'Homelikeyou');
+              $this->email->to($email);
+              $token="232334234";
+              $this->email->subject('Forfget Password');
+              $this->email->message(' <html> <body> <div id="abcd" style="text-align:justify;font-size:18px;">Please Activate your account</div>
+       <br/>
+        <a href="<?=base_url()?>users/forgotMail?tqwertyuiasdfghjzxcvbn='.$token.'" target="_blank">click Here</a><br/> </body></html>');
+
+              if($this->email->send()){
+                  echo 'email send successfully';
+              }else{
+                  echo 'some error occurred';
+                  echo $this->email->print_debugger();
+              }
+
+
+              /*$subject = "Confirmation of Registration.";
+              $message ='<html>
+        <body>
+        <div id="abcd" style="text-align:justify;font-size:18px;">Please Activate your account</div>
+       <br/>
+        <a href="http://curelives.com/admin/activate_account.php?tqwertyuiasdfghjzxcvbn='.$token.'" target="_blank">click Here</a><br/><br/>or Copy below link in Your browser : <br/><br/>http://curelives.com/admin/activate_account.php?tqwertyuiasdfghjzxcvbn='.$token.'
+        </body>
+        </html>';
+              $headers = "MIME-Version: 1.0" . "\r\n";
+              $headers  .= "From:noreply@curelife\r\n";
+              $headers .= "Content-type: text/html;charset=iso-8859-1" . "\r\n";
+              $retval = mail ($email,$subject,$message,$headers);*/
+
+          }
+
+
+        }
+        /*elseif($_POST['forgot']){
+            $this->load->view('forgot_pwd2');
+        }*/
+
+        $this->load->view('forgot_pwd');
+
+    }
+
+
+
+        public function forgotMail(){
+           /* if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+
+               $email= $_POST['email'];
+                $this->Mdl_users->setData('get_email',$email);
+                return $this->Mdl_users->forgot_Pwd($email)?true:false;
+
+
+        $subject = "Confirmation of Registration.";
+        $message ='<html>
+        <body>
+        <div id="abcd" style="text-align:justify;font-size:18px;">Please Activate your account</div>
+        Your password : '.$pass.'<br/>
+        <a href="http://curelives.com/admin/activate_account.php?tqwertyuiasdfghjzxcvbn='.$token.'" target="_blank">click Here</a><br/><br/>or Copy below link in Your browser : <br/><br/>http://curelives.com/admin/activate_account.php?tqwertyuiasdfghjzxcvbn='.$token.'
+        </body>
+        </html>';
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers  .= "From:noreply@curelife\r\n";
+        $headers .= "Content-type: text/html;charset=iso-8859-1" . "\r\n";
+        $retval = mail ($email,$subject,$message,$headers);
+
+            }
+            else{*/
+                $this->load->view('forgot_pwd2');
+          //  }
+
+
+
+
+       }
 }
 

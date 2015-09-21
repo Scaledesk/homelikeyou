@@ -99,6 +99,15 @@ class Mdl_users extends CI_Model{
                                         $this->setUserId(func_get_arg(2));
                                         break;
             }
+
+
+            case'get_email':{
+                                        $this->setUserName(func_get_arg(1));
+
+                                        break;
+
+
+            }
             default:            break;
         }
 
@@ -197,6 +206,10 @@ class Mdl_users extends CI_Model{
                 }
                 return false;
                 break;
+
+            case 'get_email': $this->_validate(func_get_arg(0));
+                  return true;
+                  break;
             default:break;
         }
 
@@ -250,6 +263,10 @@ class Mdl_users extends CI_Model{
                 $this->setToken($this->security->xss_clean($this->token));
                 $this->setProvider($this->security->xss_clean($this->provider));
                 break;
+
+            case'get_email':{
+                      $this->setUserName($this->security->xss_clean($this->getUserName()));
+            } break;
             default: break;
         }
 
@@ -286,5 +303,16 @@ class Mdl_users extends CI_Model{
             }
             default: break;
         }
+    }
+
+
+    public  function forgotPwd()
+    {
+        $email= $this->getUserName();
+
+         $email;
+       // die();
+        return $this->db->where(array('hlu_users_username'=>$email))->get('hlu_users')->result_array()? true : false;
+       // $users= $this->db->select('hlu_users_username')->get('hlu_users')->result_array();
     }
 }
