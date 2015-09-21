@@ -95,6 +95,7 @@ class Users extends MX_Controller{
     {
         $this->Mdl_users->setData('register',$data['user_name_email'],$data['password'],$data['user_level']);
         if($this->Mdl_users->register('normal_registration')){
+            $this->_callCreateWallet();
             echo "your account successfully created";
         };
     }
@@ -215,6 +216,7 @@ class Users extends MX_Controller{
         }else{
             $this->Mdl_users->register('social_registration');
             //inform the user that his account is successfully registered, so he/she can login
+            $this->_callCreateWallet();
             redirect('users');
           }
         }
@@ -282,9 +284,8 @@ class Users extends MX_Controller{
             //For Guest user, get google login url
             $gClient->setScopes(array(
                 'https://www.googleapis.com/auth/plus.login',
-                'profiles',
-                'email',
-                'openid',
+                'https://www.googleapis.com/auth/userinfo.profile',
+                'https://www.googleapis.com/auth/userinfo.email'
             ));
             $authUrl = $gClient->createAuthUrl();
         }
@@ -309,12 +310,17 @@ class Users extends MX_Controller{
                 }else{
                     $this->Mdl_users->register('social_registration');
                     //inform the user that his account is successfully registered, so he/she can login
+                    $this->_callCreateWallet();
                     redirect('users');
                 }
-
         }
-
     }
 
+    private function _callCreateWallet()
+    {
+        $this->load->Model('wallet/Mdl_wallet');
+        $this->Mdl_wallet->setData('create_wallet', $this->Mdl_users->getUserId());
+        $this->Mdl_wallet->createWallet();
+    }
 }
 

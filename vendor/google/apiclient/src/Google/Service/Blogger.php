@@ -932,7 +932,7 @@ class Google_Service_Blogger_BlogUserInfos_Resource extends Google_Service_Resou
    *
    * @param string $userId
    * ID of the user whose blogs are to be fetched. Either the word 'self' (sans quote marks) or the
-    * user's profiles identifier.
+    * user's profile identifier.
    * @param string $blogId
    * The ID of the blog to get.
    * @param array $optParams Optional parameters.
@@ -1001,7 +1001,7 @@ class Google_Service_Blogger_Blogs_Resource extends Google_Service_Resource
    *
    * @param string $userId
    * ID of the user whose blogs are to be fetched. Either the word 'self' (sans quote marks) or the
-    * user's profiles identifier.
+    * user's profile identifier.
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool fetchUserInfo
@@ -1401,7 +1401,7 @@ class Google_Service_Blogger_PostUserInfos_Resource extends Google_Service_Resou
    *
    * @param string $userId
    * ID of the user for the per-user information to be fetched. Either the word 'self' (sans quote
-    * marks) or the user's profiles identifier.
+    * marks) or the user's profile identifier.
    * @param string $blogId
    * The ID of the blog.
    * @param string $postId
@@ -1425,7 +1425,7 @@ class Google_Service_Blogger_PostUserInfos_Resource extends Google_Service_Resou
    *
    * @param string $userId
    * ID of the user for the per-user information to be fetched. Either the word 'self' (sans quote
-    * marks) or the user's profiles identifier.
+    * marks) or the user's profile identifier.
    * @param string $blogId
    * ID of the blog to fetch posts from.
    * @param array $optParams Optional parameters.

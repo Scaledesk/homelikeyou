@@ -133,6 +133,10 @@ class Mdl_users extends CI_Model{
      */
     public function getUserId()
     {
+        if(!$this->user_id){
+            $user_id=$this->db->where('hlu_users_username',$this->getUserName())->select(array('hlu_users_id'))->get('hlu_users')->result_array();
+            $this->setUserId($user_id[0]['hlu_users_id']);
+        }
         return $this->user_id;
     }
 

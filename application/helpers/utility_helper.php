@@ -41,6 +41,8 @@ function isSocial($provided_email,$provided_provider){
 }
 function setInformUser(){
     $ci=CI::get_instance();
+    $flash_data=$ci->session->flashdata('message');
+    unset($flash_data);
     switch(func_get_arg(0)){
         case 'success' : {
             $ci->session->set_flashdata('message',"<div style='color:green;border:1px solid;border-color: #009900;'>".func_get_arg(1)."</div>");
