@@ -6,7 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * Date: 9/19/2015
  * Time: 4:08 PM
  */
-class Mdl_massages extends CI_Model
+class Mdl_messages extends CI_Model
 {
     private $profiles_id;
     private $send_to;

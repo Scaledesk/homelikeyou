@@ -6,12 +6,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * Date: 9/19/2015
  * Time: 4:07 PM
  */
-class Massages  extends MX_Controller
+class Messages  extends MX_Controller
 {
 
     function __construct(){
         parent::__construct();
-        $this->load->Model('Mdl_massages');
+        $this->load->Model('Mdl_messages');
    //	$this->load->helper(array('form','url','language'));
         $this->load->library('upload');
     }
@@ -22,7 +22,7 @@ class Massages  extends MX_Controller
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
             $to_do_with_post=$_POST['todo'];
             if ($to_do_with_post=="hml324"){
-                echo $this->_sendMassages('send',$this->input->post())?"your massages sucessfully":"sorry, some error occured";
+                echo $this->_sendMessages('send',$this->input->post())?"your messages sucessfully":"sorry, some error occured";
               }
 
         }
@@ -33,24 +33,25 @@ class Massages  extends MX_Controller
     }
 
 
-    private function _sendMassages($todo,$data)
+    private function _sendMessages($todo,$data)
     {
         switch ($todo){
 
             case'send':
 
-                $config['upload_path'] = APPPATH.'modules/massages/upload/';
-
+                $config['upload_path'] = APPPATH.'modules/messages/upload/';
+                $config['allowed_types'] = 'png|jpeg|gif|jpg|pdf';
                 $config['max_size'] = '2048000';
-                $image=time().$_FILES['image']['name'];
+                $attached=time().$_FILES['attached']['name'];
                 $config['upload_path'];
 
-                $_FILES['image']['name'] = $image;
+                $_FILES['attached']['name']=$attached;
 
                 $this->upload->initialize($config);
-                $this->upload->do_upload('image');
-                $this->Mdl_massages->setData($todo,/*"2"*/$this->session->userdata['user_data']['user_id'],$data['send_to'],$data['subject'],$data['body'],$image);
-                return $this->Mdl_massages->sendTo($todo)?true:false;
+                $this->upload->do_upload('attached');
+                /*print_r($data);die();*/
+                $this->Mdl_messages->setData($todo,"2"/*$this->session->userdata['user_data']['user_id']*/,$data['send_to'],$data['subject'],$data['body'],$attached);
+                return $this->Mdl_messages->sendTo($todo)?true:false;
                 break;
 
 

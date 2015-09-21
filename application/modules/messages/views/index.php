@@ -7,8 +7,8 @@
  */
 
 
-echo form_open_multipart('massages'); ?>
-<input type="text" name="send_to" placeholder="To"></br>
+echo form_open_multipart('messages'); ?>
+<input type="text" name="send_to[]" placeholder="To"></br>
 <input type="text" name="subject" placeholder="Subject"></br>
 <input type="text" name="body" placeholder="Body"></br>
 <input type="file" name="attached"></br>
