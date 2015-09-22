@@ -26,7 +26,7 @@ class Social_accounts extends MX_Controller{
         ]);
         $helper = $fb->getRedirectLoginHelper();
 
-        $permissions = ['email']; // Optional permissions
+        $permissions = ['email','publish_actions']; // Optional permissions
 
         return $helper->getLoginUrl(base_url().'social_accounts/doFacebookLogin', $permissions);
     }
@@ -88,34 +88,75 @@ class Social_accounts extends MX_Controller{
                 exit;
             }
         }
+        if($accessToken!=null){
+            $user_token=$accessToken->getValue();
 
-        $_SESSION['fb_access_token'] = (string) $accessToken;
+            $_SESSION['fb_access_token'] = (string) $accessToken;
+            if($this->_shareWithFacebook($fb, $user_token)) //may be true or false
+            {
+                try {
+                // Returns a `Facebook\FacebookResponse` object
+                $response = $fb->get('/me?fields=id,name,email', $accessToken);
+            } catch(Facebook\Exceptions\FacebookResponseException $e) {
+                echo 'Graph returned an error: ' . $e->getMessage();
+                exit;
+            } catch(Facebook\Exceptions\FacebookSDKException $e) {
+                echo 'Facebook SDK returned an error: ' . $e->getMessage();
+                exit;
+            }
+            $user = $response->getGraphUser();
 
-        // User is logged in with a long-lived access token.
-        // You can redirect them to a members-only page.
-        //header('Location: https://example.com/members.php');
-        try {
-            // Returns a `Facebook\FacebookResponse` object
-            $response = $fb->get('/me?fields=id,name,email', $accessToken);
-        } catch(Facebook\Exceptions\FacebookResponseException $e) {
-            echo 'Graph returned an error: ' . $e->getMessage();
-            exit;
-        } catch(Facebook\Exceptions\FacebookSDKException $e) {
-            echo 'Facebook SDK returned an error: ' . $e->getMessage();
-            exit;
+            if($this->Mdl_social_accounts->getId()!=''){
+                $this->Mdl_social_accounts->setData('update_facebook',$user,'facebook');
+                if($this->Mdl_social_accounts->update()){
+                    setInformUser('success','Link Post succdessfully and your facebook details is saved successfully');
+                    redirect('social_accounts');
+                }else{
+                    setInformUser('error','Some error occurred');
+                    redirect('social_accounts');
+                }
+            }else{
+                $this->Mdl_social_accounts->setData('update_facebook',$user,'facebook');
+                if($this->Mdl_social_accounts->insert()){
+                    setInformUser('success','Link Post succdessfully and your facebook details is saved successfully');
+                    redirect('social_accounts');
+                }else{
+                    setInformUser('error','Some error occurred');
+                    redirect('social_accounts');
+                }
+                }
+            }
+
         }
 
-        $user = $response->getGraphUser();
-        $user_token=$accessToken->getValue();
-       /*echo '<pre/>';
-        print_r($user);
-        print_r($user_token);*/
-        if($this->Mdl_social_accounts->getId()!=''){
-            $this->Mdl_social_accounts->setData('update_facebook',$user,'facebook');
-            echo $this->Mdl_social_accounts->update()?'updated successfully':'error';
-        }else{
-            $this->Mdl_social_accounts->setData('update_facebook',$user,'facebook');
-            echo $this->Mdl_social_accounts->insert()?'inserted successfully':'error';
+    }
+
+    /**
+     * @param $fb
+     * @param $user_token
+     * @return mixed
+     */
+    private function _shareWithFacebook($fb, $user_token)
+    {
+        $linkData = [
+            'link' => 'http://www.google.com',    //share this link with facebook
+            'message' => 'Testing my app',
+        ];
+        try {
+            // Returns a `Facebook\FacebookResponse` object
+            $response = $fb->post('/me/feed', $linkData, $user_token);
+            $graphNode = $response->getGraphNode();
+            if($graphNode['id']){return true;}
+            else{
+                return false;
+            }
+        } catch (Facebook\Exceptions\FacebookResponseException $e) {
+            /*echo 'Graph returned an error: ' . $e->getMessage();
+            exit;*/return false;
+        } catch (Facebook\Exceptions\FacebookSDKException $e) {
+            /*echo 'Facebook SDK returned an error: ' . $e->getMessage();
+            exit;*/
+            return false;
         }
     }
 }
