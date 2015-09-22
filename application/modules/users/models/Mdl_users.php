@@ -6,8 +6,9 @@
  * Time: 7:05 PM
  */
 
-class Mdl_users extends CI_Model{
-    const GUEST_ID =1; //may be needs to do it like it take it from database or to define user level as global constants later. It will be seen in future.
+class Mdl_users extends CI_Model
+{
+    const GUEST_ID = 1; //may be needs to do it like it take it from database or to define user level as global constants later. It will be seen in future.
     private $user_id;
     private $user_name;
     private $password;
@@ -27,10 +28,11 @@ class Mdl_users extends CI_Model{
     }
 
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
-        $this->role_id=self::GUEST_ID;
-        $this->permissions_name=array();
+        $this->role_id = self::GUEST_ID;
+        $this->permissions_name = array();
     }
 
     /**
@@ -52,63 +54,83 @@ class Mdl_users extends CI_Model{
     /**
      *perform set data for class functions.
      */
-    public function setData(){
-        switch (func_get_arg(0)){
-            case "register":    $this->setUserName(func_get_arg(1));
-                                $this->setPassword(func_get_arg(2));
-                                $this->setRoleId(func_get_arg(3));
-                                break;
-            case "checkUser":   $this->setUserName(func_get_arg(1));
-                                $this->setPassword(func_get_arg(2));
-                                break;
-            case "setSessionData": { if($data=$this->db->where(array('hlu_users_permissions_username'=>func_get_arg(1)))->get('hlu_users_permissions')->result_array()){
-                                        $this->setUserId($data[0]['hlu_users_permissions_user_id']);
-                                        $this->setUserName($data[0]['hlu_users_permissions_username']);
-                                        $this->setRoleId($data[0]['hlu_users_permissions_user_role_id']);
-                                        $this->setRolesName($data[0]['hlu_users_permissions_user_role']);
-                                        foreach($data as $row){
-                                            array_push($this->permissions_name,$row['hlu_users_permissions_user_permission']);
-                                        }
-                                        $this->getUserData();
-                                        break;
-                                    }else{
-                                        $data=$this->db->where(array('hlu_users_username'=>func_get_arg(1)))->select('hlu_users_username,hlu_users_id,hlu_users_roles_id')->get('hlu_users')->result_array();
-                                        $this->setUserID($data[0]['hlu_users_id']);
-                                        $this->setUserName($data[0]['hlu_users_username']);
-                                        $this->setRoleId($data[0]['hlu_users_roles_id']);
-                                        $role_name=$this->db->where(array('hlu_roles_id'=>$this->role_id))->select('hlu_roles_name')->get('hlu_roles')->result_array();
-                                        $this->setRolesName($role_name[0]['hlu_roles_name']);
-                                        $this->permissions_name=array();
-                                    }
-                            }
-                                break;
-            case "facebook_login":      {
-                                        $this->setUserName(func_get_arg(1));
-                                        $this->setSocialId(func_get_arg(2));
-                                        $this->setToken(func_get_arg(3));
-                                        $this->setProvider(func_get_arg(4));
-                                        break;
+    public function setData()
+    {
+        switch (func_get_arg(0)) {
+            case "register":
+                $this->setUserName(func_get_arg(1));
+                $this->setPassword(func_get_arg(2));
+                $this->setRoleId(func_get_arg(3));
+                break;
+            case "checkUser":
+                $this->setUserName(func_get_arg(1));
+                $this->setPassword(func_get_arg(2));
+                break;
+            case "setSessionData": {
+                if ($data = $this->db->where(array('hlu_users_permissions_username' => func_get_arg(1)))->get('hlu_users_permissions')->result_array()) {
+                    $this->setUserId($data[0]['hlu_users_permissions_user_id']);
+                    $this->setUserName($data[0]['hlu_users_permissions_username']);
+                    $this->setRoleId($data[0]['hlu_users_permissions_user_role_id']);
+                    $this->setRolesName($data[0]['hlu_users_permissions_user_role']);
+                    foreach ($data as $row) {
+                        array_push($this->permissions_name, $row['hlu_users_permissions_user_permission']);
+                    }
+                    $this->getUserData();
+                    break;
+                } else {
+                    $data = $this->db->where(array('hlu_users_username' => func_get_arg(1)))->select('hlu_users_username,hlu_users_id,hlu_users_roles_id')->get('hlu_users')->result_array();
+                    $this->setUserID($data[0]['hlu_users_id']);
+                    $this->setUserName($data[0]['hlu_users_username']);
+                    $this->setRoleId($data[0]['hlu_users_roles_id']);
+                    $role_name = $this->db->where(array('hlu_roles_id' => $this->role_id))->select('hlu_roles_name')->get('hlu_roles')->result_array();
+                    $this->setRolesName($role_name[0]['hlu_roles_name']);
+                    $this->permissions_name = array();
+                }
             }
-            case "is_Social":      {
-                                        $this->setUserId(func_get_arg(1));
-                                        $this->setProvider(func_get_arg(2));
-                                        break;
+                break;
+            case "facebook_login": {
+                $this->setUserName(func_get_arg(1));
+                $this->setSocialId(func_get_arg(2));
+                $this->setToken(func_get_arg(3));
+                $this->setProvider(func_get_arg(4));
+                break;
+            }
+            case "is_Social": {
+                $this->setUserId(func_get_arg(1));
+                $this->setProvider(func_get_arg(2));
+                break;
             }
             case 'UidEmail' : {
-                                        $this->setUserId(func_get_arg(1));
-                                        $this->setUserId(func_get_arg(2));
-                                        break;
+                $this->setUserId(func_get_arg(1));
+                $this->setUserId(func_get_arg(2));
+                break;
             }
 
 
-            case'get_email':{
-                                        $this->setUserName(func_get_arg(1));
-
-                                        break;
+            case'get_email': {
+                $this->setUserName(func_get_arg(1));
+                $this->setToken(func_get_arg(2));
+                break;
 
 
             }
-            default:            break;
+
+            case 'token':{
+                $this->setToken(func_get_arg(1));
+                echo $this->getToken();
+                echo 'token set';
+              break;
+            }
+
+            case'pass':{
+                $this->setPassword(func_get_arg(1));
+
+
+                break;
+
+            }
+            default:
+                break;
         }
 
     }
@@ -140,10 +162,16 @@ class Mdl_users extends CI_Model{
     /**
      * @return mixed
      */
+
+    public function getToken()
+    {
+        return $this->token;
+    }
+
     public function getUserId()
     {
-        if(!$this->user_id){
-            $user_id=$this->db->where('hlu_users_username',$this->getUserName())->select(array('hlu_users_id'))->get('hlu_users')->result_array();
+        if (!$this->user_id) {
+            $user_id = $this->db->where('hlu_users_username', $this->getUserName())->select(array('hlu_users_id'))->get('hlu_users')->result_array();
             $this->setUserId($user_id[0]['hlu_users_id']);
         }
         return $this->user_id;
@@ -180,37 +208,43 @@ class Mdl_users extends CI_Model{
     {
         return $this->permissions_name;
     }
-    public function register(){
-        switch(func_get_arg(0)){
-            case 'normal_registration':$this->_validate('normal_registration');
-                $this->setPassword(password_hash($this->password,PASSWORD_DEFAULT));
-                $data=[
-                    'hlu_users_username'=>$this->user_name,
-                    'hlu_users_password'=>$this->password,
-                    'hlu_users_roles_id'=>$this->role_id
+
+    public function register()
+    {
+        switch (func_get_arg(0)) {
+            case 'normal_registration':
+                $this->_validate('normal_registration');
+                $this->setPassword(password_hash($this->password, PASSWORD_DEFAULT));
+                $data = [
+                    'hlu_users_username' => $this->user_name,
+                    'hlu_users_password' => $this->password,
+                    'hlu_users_roles_id' => $this->role_id
                 ];
-                if($this->db->insert('hlu_users',$data)){
+                if ($this->db->insert('hlu_users', $data)) {
                     return true;
                 }
                 return false;
                 break;
-            case 'social_registration':$this->_validate('social_registration');
-                $data=[
-                    'hlu_users_username'=>$this->user_name,
-                    'hlu_users_social_id'=>$this->social_id,
-                    'hlu_users_provider'=>$this->provider,
-                    'hlu_users_roles_id'=>$this->role_id
+            case 'social_registration':
+                $this->_validate('social_registration');
+                $data = [
+                    'hlu_users_username' => $this->user_name,
+                    'hlu_users_social_id' => $this->social_id,
+                    'hlu_users_provider' => $this->provider,
+                    'hlu_users_roles_id' => $this->role_id
                 ];
-                if($this->db->insert('hlu_users',$data)){
+                if ($this->db->insert('hlu_users', $data)) {
                     return true;
                 }
                 return false;
                 break;
 
-            case 'get_email': $this->_validate(func_get_arg(0));
-                  return true;
-                  break;
-            default:break;
+            case 'get_email':
+                $this->_validate(func_get_arg(0));
+                return true;
+                break;
+            default:
+                break;
         }
 
     }
@@ -219,9 +253,10 @@ class Mdl_users extends CI_Model{
      * this checks user credentials on basis of user provided data
      * @return bool
      */
-    public function checkUser(){
-        if($data=$this->db->where(array('hlu_users_username'=>$this->user_name))->select('hlu_users_password')->get('hlu_users')->result_array()){
-            if((password_verify($this->password,$data[0]['hlu_users_password'])))return true;
+    public function checkUser()
+    {
+        if ($data = $this->db->where(array('hlu_users_username' => $this->user_name))->select('hlu_users_password')->get('hlu_users')->result_array()) {
+            if ((password_verify($this->password, $data[0]['hlu_users_password']))) return true;
             return false;
         }
         return false;
@@ -253,21 +288,26 @@ class Mdl_users extends CI_Model{
 
     private function _validate()
     {
-        switch(func_get_arg(0)){
-            case "normal_registration":$this->setPassword($this->security->xss_clean($this->password));
+        switch (func_get_arg(0)) {
+            case "normal_registration":
+                $this->setPassword($this->security->xss_clean($this->password));
                 $this->setUserName($this->security->xss_clean($this->user_name));
                 $this->setRoleId($this->security->xss_clean($this->role_id));
                 break;
-            case "social_registration":$this->setUserId($this->security->xss_clean($this->user_id));
+            case "social_registration":
+                $this->setUserId($this->security->xss_clean($this->user_id));
                 $this->setSocialId($this->security->xss_clean($this->social_id));
                 $this->setToken($this->security->xss_clean($this->token));
                 $this->setProvider($this->security->xss_clean($this->provider));
                 break;
 
-            case'get_email':{
-                      $this->setUserName($this->security->xss_clean($this->getUserName()));
-            } break;
-            default: break;
+            case'get_email': {
+                $this->setUserName($this->security->xss_clean($this->getUserName()));
+                $this->setToken($this->security->xss_clean($this->getToken()));
+            }
+                break;
+            default:
+                break;
         }
 
     }
@@ -278,41 +318,119 @@ class Mdl_users extends CI_Model{
      */
     public function getUserData()
     {
-        return ['user_id'=>$this->getUserId(),'user_name'=>$this->getUserName(),
-                    'user_role_id'=>$this->getRoleId(),'user_role_name'=>$this->getRolesName(),
-                    'user_permissions'=>$this->getPermissionsName()
+        return ['user_id' => $this->getUserId(), 'user_name' => $this->getUserName(),
+            'user_role_id' => $this->getRoleId(), 'user_role_name' => $this->getRolesName(),
+            'user_permissions' => $this->getPermissionsName()
         ];
     }
-    public function isSocialRegistered(){
-        return $this->db->where(array('hlu_users_username'=>$this->user_name,'hlu_users_provider'=>$this->provider))->select('hlu_users_id')->get('hlu_users')->result_array()?true:false;
+
+    public function isSocialRegistered()
+    {
+        return $this->db->where(array('hlu_users_username' => $this->user_name, 'hlu_users_provider' => $this->provider))->select('hlu_users_id')->get('hlu_users')->result_array() ? true : false;
     }
-    public function isNormalRegistered(){
-        return $this->db->where(array('hlu_users_username'=>$this->user_id))->select('hlu_users_id')->get('hlu_users')->result_array()?true:false;
+
+    public function isNormalRegistered()
+    {
+        return $this->db->where(array('hlu_users_username' => $this->user_id))->select('hlu_users_id')->get('hlu_users')->result_array() ? true : false;
     }
-    public function getUsers(){
-        switch(func_get_arg(0)){
+
+    public function getUsers()
+    {
+        switch (func_get_arg(0)) {
             /*returns an array og users Uid and Email*/
-            case 'UidEmail':{
-                $user1=array();
-                $users= $this->db->select('hlu_users_id,hlu_users_username')->get('hlu_users')->result_array();
-                foreach($users as $user){
-                    $user1[$user['hlu_users_id']]=$user['hlu_users_username'];
+            case 'UidEmail': {
+                $user1 = array();
+                $users = $this->db->select('hlu_users_id,hlu_users_username')->get('hlu_users')->result_array();
+                foreach ($users as $user) {
+                    $user1[$user['hlu_users_id']] = $user['hlu_users_username'];
                 }
                 return $user1;
                 break;
             }
-            default: break;
+            default:
+                break;
         }
     }
 
 
-    public  function forgotPwd()
+    public function forgotPwd()
     {
-        $email= $this->getUserName();
+        switch (func_get_arg(0)) {
+            case'get_email': {
+                $email = $this->getUserName();
 
-         $email;
-       // die();
-        return $this->db->where(array('hlu_users_username'=>$email))->get('hlu_users')->result_array()? true : false;
-       // $users= $this->db->select('hlu_users_username')->get('hlu_users')->result_array();
+                // die();
+                return $this->db->where('hlu_users_username',$email)->select(array('hlu_users_id'))->get('hlu_users')->result_array() ? true : false;
+                break;
+                // $users= $this->db->select('hlu_users_username')->get('hlu_users')->result_array();
+            }
+            case'forgot': {
+                $data = [
+                    'hlu_forgot_pwd_email' => $this->getUserName(),
+                    'hlu_forgot_pwd_password' => $this->getToken()
+                ];
+                return $this->db->insert('hlu_forgot_pwd', $data) ? true : false;
+            }
+                //$this->getUserName(),
+            case'update_pass': {
+                 //echo "pass";
+                //echo $this->getUserName();
+                $this->getPassword();
+
+                 $token=$this->session->userdata('token');
+                $this->session->unset_userdata('token');
+                $email= $this->db->where('hlu_forgot_pwd_password',$token)->select('hlu_forgot_pwd_email')->get('hlu_forgot_pwd')->result_array();
+                $email= $email[0]['hlu_forgot_pwd_email'];
+
+                return $this->db->where('hlu_users_username',$email)->update('hlu_users',['hlu_users_password'=>$this->getPassword()])?true:false;
+            }
+        }
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSocialId()
+    {
+        return $this->social_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProvider()
+    {
+        return $this->provider;
+    }
+
+    /**
+     * PHP 5 introduces a destructor concept similar to that of other object-oriented languages, such as C++.
+     * The destructor method will be called as soon as all references to a particular object are removed or
+     * when the object is explicitly destroyed or in any order in shutdown sequence.
+     *
+     * Like constructors, parent destructors will not be called implicitly by the engine.
+     * In order to run a parent destructor, one would have to explicitly call parent::__destruct() in the destructor body.
+     *
+     * Note: Destructors called during the script shutdown have HTTP headers already sent.
+     * The working directory in the script shutdown phase can be different with some SAPIs (e.g. Apache).
+     *
+     * Note: Attempting to throw an exception from a destructor (called in the time of script termination) causes a fatal error.
+     *
+     * @return void
+     * @link http://php.net/manual/en/language.oop5.decon.php
+     */
+    function __destruct()
+    {
+        // TODO: Implement __destruct() method.
+        echo 'destroyed model';
     }
 }

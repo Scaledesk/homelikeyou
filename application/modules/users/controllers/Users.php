@@ -316,96 +316,89 @@ class Users extends MX_Controller{
         }
     }
 
-    private function _callCreateWallet()
+            private function _callCreateWallet()
+            {
+                $this->load->Model('wallet/Mdl_wallet');
+                $this->Mdl_wallet->setData('create_wallet', $this->Mdl_users->getUserId());
+                $this->Mdl_wallet->createWallet();
+            }
+
+    Public function forgetPwd()
     {
-        $this->load->Model('wallet/Mdl_wallet');
-        $this->Mdl_wallet->setData('create_wallet', $this->Mdl_users->getUserId());
-        $this->Mdl_wallet->createWallet();
-    }
-
-    Public function forgetPwd(){
-
-
 
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
 
-              $email= $_POST['email'];
-            // echo (base_url().'users/forgotMail');
-            $this->Mdl_users->setData('get_email',$email);
-          if($this->Mdl_users->forgotPwd($email)){
+            $a=rand(999999999999,9999999999999999);
+            $token = "hlu".$a;
+            $email = $_POST['email'];
+            $this->Mdl_users->setData('get_email', $email,$token);
+            if ($this->Mdl_users->forgotPwd('get_email',$email)) {
 
-              $this->email->from('singhniteshbca@gmail.com', 'Homelikeyou');
-              $this->email->to($email);
-              $token="232334234";
-              $this->email->subject('Forfget Password');
-              $this->email->message(' <html> <body> <div id="abcd" style="text-align:justify;font-size:18px;">Please Activate your account</div>
-       <br/>
-        <a href="<?=base_url()?>users/forgotMail?tqwertyuiasdfghjzxcvbn='.$token.'" target="_blank">click Here</a><br/> </body></html>');
+                $this->email->from('singhniteshbca@gmail.com', 'Homelikeyou');
+                $this->email->to($email);
 
-              if($this->email->send()){
-                  echo 'email send successfully';
-              }else{
-                  echo 'some error occurred';
-                  echo $this->email->print_debugger();
-              }
+               /* echo $token;
+                die();*/
 
 
-              /*$subject = "Confirmation of Registration.";
-              $message ='<html>
-        <body>
-        <div id="abcd" style="text-align:justify;font-size:18px;">Please Activate your account</div>
-       <br/>
-        <a href="http://curelives.com/admin/activate_account.php?tqwertyuiasdfghjzxcvbn='.$token.'" target="_blank">click Here</a><br/><br/>or Copy below link in Your browser : <br/><br/>http://curelives.com/admin/activate_account.php?tqwertyuiasdfghjzxcvbn='.$token.'
-        </body>
-        </html>';
-              $headers = "MIME-Version: 1.0" . "\r\n";
-              $headers  .= "From:noreply@curelife\r\n";
-              $headers .= "Content-type: text/html;charset=iso-8859-1" . "\r\n";
-              $retval = mail ($email,$subject,$message,$headers);*/
+                $this->email->subject('Forfget Password');
+                $this->email->message(' <div id="abcd" style="text-align:justify;font-size:18px;">Please Activate your account</div>
+                           <br/>
+                           <a href="http://localhost/homelikeyou/index.php/Users/recallMail?tqwertyuiasdfghjzxcvbn=' . $token . '">Click here</a>');
 
-          }
+                if ($this->email->send()) {
+
+                    $this->Mdl_users->forgotPwd('forgot',$email,$token);
+                    echo 'email send successfully';
+                } else {
+                    echo 'some error occurred';
+                    echo $this->email->print_debugger();
+                }
+            }
+
+
 
 
         }
-        /*elseif($_POST['forgot']){
-            $this->load->view('forgot_pwd2');
-        }*/
-
         $this->load->view('forgot_pwd');
-
     }
 
+                public function forgotMail(){
 
+                        $this->load->view('forgot_pwd2');
 
-        public function forgotMail(){
-           /* if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-
-               $email= $_POST['email'];
-                $this->Mdl_users->setData('get_email',$email);
-                return $this->Mdl_users->forgot_Pwd($email)?true:false;
-
-
-        $subject = "Confirmation of Registration.";
-        $message ='<html>
-        <body>
-        <div id="abcd" style="text-align:justify;font-size:18px;">Please Activate your account</div>
-        Your password : '.$pass.'<br/>
-        <a href="http://curelives.com/admin/activate_account.php?tqwertyuiasdfghjzxcvbn='.$token.'" target="_blank">click Here</a><br/><br/>or Copy below link in Your browser : <br/><br/>http://curelives.com/admin/activate_account.php?tqwertyuiasdfghjzxcvbn='.$token.'
-        </body>
-        </html>';
-        $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers  .= "From:noreply@curelife\r\n";
-        $headers .= "Content-type: text/html;charset=iso-8859-1" . "\r\n";
-        $retval = mail ($email,$subject,$message,$headers);
-
-            }
-            else{*/
-                $this->load->view('forgot_pwd2');
-          //  }
+                }
+          public  function  recallMail(){
 
 
 
+              if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
 
-       }
-}
 
+//                       echo $this->input->post['pasword'];
+//                       echo $this->input->post['c_pasword'];
+                     $pass= $this->input->post('pasword');
+                      $pass_c=$this->input->post('c_pasword');
+                      if($pass==$pass_c){
+                          $pass=password_hash($pass, PASSWORD_DEFAULT);
+                      $this->Mdl_users->setData('pass',$pass);
+                      return $this->Mdl_users->forgotPwd('update_pass',$pass);
+
+                  }else{
+                      echo "Password not match ";
+                  }
+                 // echo $this->_updateProfile('step1',$this->input->post())?"your profiles inserted sucessfully":"sorry, some error occured";
+                 // $this->Mdl_profiles->setData($todo,$data['address'],$data['pin'],$data['state'],$data['country'],$this->session->userdata['user_data']['user_id']);
+                //  return $this->Mdl_profiles->updateProfile($todo)?true:false;
+
+              }
+//              $token=$_REQUEST['tqwertyuiasdfghjzxcvbn'];
+              if(isset($_REQUEST['tqwertyuiasdfghjzxcvbn'])){
+                $token=$this->input->post_get('tqwertyuiasdfghjzxcvbn');
+//              $this->Mdl_users->setData('token',$token);
+                  $this->session->set_userdata('token',$token);
+                  $this->load->view('update_password');
+              //echo $token;
+              }
+          }
+   }
