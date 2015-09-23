@@ -382,17 +382,12 @@ class Mdl_users extends CI_Model
                 ];
                 return $this->db->insert('hlu_forgot_pwd', $data) ? true : false;
             }
-                //$this->getUserName(),
             case'update_pass': {
-                 //echo "pass";
-                //echo $this->getUserName();
                 $this->getPassword();
-
-                 $token=$this->session->userdata('token');
+                $token=$this->session->userdata('token');
                 $this->session->unset_userdata('token');
                 $email= $this->db->where('hlu_forgot_pwd_password',$token)->select('hlu_forgot_pwd_email')->get('hlu_forgot_pwd')->result_array();
                 $email= $email[0]['hlu_forgot_pwd_email'];
-
                 return $this->db->where('hlu_users_username',$email)->update('hlu_users',['hlu_users_password'=>$this->getPassword()])?true:false;
             }
         }

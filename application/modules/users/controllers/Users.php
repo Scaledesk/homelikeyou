@@ -398,16 +398,12 @@ class Users extends MX_Controller{
                   $token = $this->input->post_get('tqwertyuiasdfghjzxcvbn');
                   $this->session->set_userdata('token', $token);
                   $this->load->view('update_password');
-                  //echo $token;
               }
 
           }
 
     public  function  createToken()
     {
-
-       //
-
         $a=rand(999999999999,9999999999999999);
         $active_token = "hlu".$a;
         $active_token = password_hash($active_token, PASSWORD_DEFAULT);
@@ -416,10 +412,7 @@ class Users extends MX_Controller{
 
     public  function sendMail()
     {
-        //
-
         $token = $this->createToken();
-        /*$email = $this->;*/
         $this->email->from('singhniteshbca@gmail.com', 'Homelikeyou');
         $this->email->to($this->Mdl_users->getUserName());
 
@@ -427,8 +420,6 @@ class Users extends MX_Controller{
         $this->email->message(' <div id="abcd" style="text-align:justify;font-size:18px;">Please Activate your account</div>
                            <br/>
                            <a href="http://localhost/homelikeyou/index.php/users/verifyEmail?tqwertyuiasdfghjzxcvbn=' . $token . '">Click here</a>');
-
-
            $this->Mdl_users->setData('token',$token);
            return $this->email->send()?true:false;
 
