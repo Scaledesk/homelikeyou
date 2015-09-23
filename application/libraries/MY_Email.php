@@ -13,6 +13,7 @@ class MY_Email extends CI_Email{
      */
     function __construct()
     {
+        date_default_timezone_set('Asia/Calcutta');
         $ci=CI::get_instance();
         $ci->load->Model('hlu_email_settings/Mdl_hlu_email_settings'); //load email settings model
         $smtp=$ci->Mdl_hlu_email_settings->toArray();//get object valeus in array

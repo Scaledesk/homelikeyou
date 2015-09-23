@@ -351,8 +351,7 @@ class Users extends MX_Controller{
                 $this->email->subject('Forgot Password');
                 $this->email->message(' <div id="abcd" style="text-align:justify;font-size:18px;">Reset Password</div>
                            <br/>
-                           <a href="'.base_url().'/users/recallMail?tqwertyuiasdfghjzxcvbn=' . $token . '">Click here</a>');
-
+                           <a href="'.base_url().'index.php/users/recallMail?tqwertyuiasdfghjzxcvbn=' . $token . '">Click here</a>');
                 if ($this->email->send()) {
 
                     if($this->Mdl_users->forgotPwd('forgot',$email,$token)){
@@ -431,5 +430,4 @@ class Users extends MX_Controller{
         $this->Mdl_users->verifyEmail()?setInformUser('success',"email verified successfully"):setInformUser('error',"email not verified! Try Again");
         redirect('users');
     }
-
 }
