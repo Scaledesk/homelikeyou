@@ -351,7 +351,7 @@ class Users extends MX_Controller{
                 $this->email->subject('Forgot Password');
                 $this->email->message(' <div id="abcd" style="text-align:justify;font-size:18px;">Reset Password</div>
                            <br/>
-                           <a href="http://localhost/homelikeyou/index.php/users/recallMail?tqwertyuiasdfghjzxcvbn=' . $token . '">Click here</a>');
+                           <a href="'.base_url().'/users/recallMail?tqwertyuiasdfghjzxcvbn=' . $token . '">Click here</a>');
 
                 if ($this->email->send()) {
 
@@ -419,12 +419,9 @@ class Users extends MX_Controller{
         $this->email->subject('Email Activation');
         $this->email->message(' <div id="abcd" style="text-align:justify;font-size:18px;">Please Activate your account</div>
                            <br/>
-                           <a href="http://localhost/homelikeyou/index.php/users/verifyEmail?tqwertyuiasdfghjzxcvbn=' . $token . '">Click here</a>');
+                           <a href="'.base_url().'users/verifyEmail?tqwertyuiasdfghjzxcvbn=' . $token . '">Click here</a>');
            $this->Mdl_users->setData('token',$token);
            return $this->email->send()?true:false;
-
-
-
     }
     public function verifyEmail(){
 
