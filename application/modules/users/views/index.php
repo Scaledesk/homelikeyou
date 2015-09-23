@@ -41,6 +41,7 @@
       <?php echo form_close(); ?>
       <a href="<?php echo htmlspecialchars($facebook_login_url);?>"><img src="<?php echo asset_url();?>images/facebook_login.png"  width="50%"></a>
       <a href="<?php echo base_url();?>users/doGoogleLogin"><img src="<?php echo asset_url();?>images/google_login.png"  width="48%"></a>
+      <a href="<?=base_url()?>users/forgotMail" style="align-self: center"> Forgot Pwd</a>
   </div>
   <div class="form">
     <h2>Create an account</h2>

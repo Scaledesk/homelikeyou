@@ -76,16 +76,22 @@ class Users extends MX_Controller{
     private function _login($data)
     {
         $this->Mdl_users->setData('checkUser',$data['user_name_email'],$data['password']);
-        if($this->Mdl_users->checkUser()){
-            $this->Mdl_users->setData('setSessionData',$data['user_name_email']);
-            $user_data=$this->Mdl_users->getUserData();
-            $this->_setSessionData('authorize',$user_data);
-            redirect('testapp');
+        if(isAccountActive()){
+            if($this->Mdl_users->checkUser()){
+                $this->Mdl_users->setData('setSessionData',$data['user_name_email']);
+                $user_data=$this->Mdl_users->getUserData();
+                $this->_setSessionData('authorize',$user_data);
+                redirect('testapp');
+            }else{
+                //set flash message that his username and password do not match try again.
+                setInformUser('error','your Username and password do not match');
+                redirect('users');
+            }
         }else{
-            //set flash message that his username and password do not match try again.
-            setInformUser('error','your Username and password do not match');
+            setInformUser('error','Your Account in not activated. Kindly verify your email to logon.');
             redirect('users');
         }
+
     }
 
     /**
@@ -96,7 +102,11 @@ class Users extends MX_Controller{
         $this->Mdl_users->setData('register',$data['user_name_email'],$data['password'],$data['user_level']);
         if($this->Mdl_users->register('normal_registration')){
             $this->_callCreateWallet();
-            echo "your account successfully created";
+            if($this->sendMail()){
+                echo $this->Mdl_users->insertToken()?"your account successfully created":"some error in inserting token";
+            }else{
+               echo 'Account registered but email not send.';
+            }
         };
     }
 
@@ -316,11 +326,113 @@ class Users extends MX_Controller{
         }
     }
 
-    private function _callCreateWallet()
-    {
-        $this->load->Model('wallet/Mdl_wallet');
-        $this->Mdl_wallet->setData('create_wallet', $this->Mdl_users->getUserId());
-        $this->Mdl_wallet->createWallet();
-    }
-}
+            private function _callCreateWallet()
+            {
+                $this->load->Model('wallet/Mdl_wallet');
+                $this->Mdl_wallet->setData('create_wallet', $this->Mdl_users->getUserId());
+                $this->Mdl_wallet->createWallet();
+            }
 
+    Public function forgetPwd()
+    {
+
+        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+
+            $a=rand(999999999999,9999999999999999);
+            $token = "hlu".$a;
+            $token = password_hash($token, PASSWORD_DEFAULT);
+            $email = $_POST['email'];
+            $this->Mdl_users->setData('get_email', $email,$token);
+            if ($this->Mdl_users->forgotPwd('get_email',$email)) {
+
+                $this->email->from('singhniteshbca@gmail.com', 'Homelikeyou');
+                $this->email->to($email);
+
+                $this->email->subject('Forgot Password');
+                $this->email->message(' <div id="abcd" style="text-align:justify;font-size:18px;">Reset Password</div>
+                           <br/>
+                           <a href="http://localhost/homelikeyou/index.php/users/recallMail?tqwertyuiasdfghjzxcvbn=' . $token . '">Click here</a>');
+
+                if ($this->email->send()) {
+
+                    if($this->Mdl_users->forgotPwd('forgot',$email,$token)){
+                        setInformUser('success','Kindly check your email to reset password');
+                        redirect('users');
+                    }else{
+                        setInformUser('error','Some error Occurred! Kindly retry');
+                        redirect('users');
+                    }
+                } else {
+                    echo 'some error occurred';
+                    echo $this->email->print_debugger();
+                }
+            }else{
+                setInformUser('error','No such email found in our records. Kindly register with us');
+                redirect('users');
+            }
+        }
+    }
+                public function forgotMail(){
+
+                        $this->load->view('forgot_password');
+
+                }
+          public  function  recallMail()
+          {
+
+              if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+                  $pass = $this->input->post('pasword');
+                  $pass_c = $this->input->post('c_pasword');
+                  if ($pass == $pass_c) {
+                      $pass = password_hash($pass, PASSWORD_DEFAULT);
+                      $this->Mdl_users->setData('pass', $pass);
+                      if($this->Mdl_users->forgotPwd('update_pass', $pass)){
+                       setInformUser('success','Your password updated successfully! kindly login with new password to continue.');
+                          redirect('users');
+                      };
+                  } else {
+                      echo "Password not match ";
+                  }
+              }
+              if (isset($_REQUEST['tqwertyuiasdfghjzxcvbn'])) {
+                  $token = $this->input->post_get('tqwertyuiasdfghjzxcvbn');
+                  $this->session->set_userdata('token', $token);
+                  $this->load->view('update_password');
+              }
+
+          }
+
+    public  function  createToken()
+    {
+        $a=rand(999999999999,9999999999999999);
+        $active_token = "hlu".$a;
+        $active_token = password_hash($active_token, PASSWORD_DEFAULT);
+         return $active_token;
+    }
+
+    public  function sendMail()
+    {
+        $token = $this->createToken();
+        $this->email->from('singhniteshbca@gmail.com', 'Homelikeyou');
+        $this->email->to($this->Mdl_users->getUserName());
+
+        $this->email->subject('Email Activation');
+        $this->email->message(' <div id="abcd" style="text-align:justify;font-size:18px;">Please Activate your account</div>
+                           <br/>
+                           <a href="http://localhost/homelikeyou/index.php/users/verifyEmail?tqwertyuiasdfghjzxcvbn=' . $token . '">Click here</a>');
+           $this->Mdl_users->setData('token',$token);
+           return $this->email->send()?true:false;
+
+
+
+    }
+    public function verifyEmail(){
+
+
+              $token=$this->input->post_get('tqwertyuiasdfghjzxcvbn');
+            $this->Mdl_users->setData('token',$token);
+        $this->Mdl_users->verifyEmail()?setInformUser('success',"email verified successfully"):setInformUser('error',"email not verified! Try Again");
+        redirect('users');
+    }
+
+}
