@@ -62,4 +62,10 @@ function getInformUser(){
     if($ci->session->flashdata('message')){
         echo $ci->session->flashdata('message');
     }
+    function isAccountActive(){
+        $ci=ci::get_instance();
+        $ci->load->Model('users/Mdl_users');
+        return $ci->Mdl_users->isActive()?true:false;
+    }
+
 }

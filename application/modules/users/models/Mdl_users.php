@@ -437,4 +437,7 @@ class Mdl_users extends CI_Model
         'hlu_users_status'=>'1'
         ])?true:false;
     }
+    public function isActive(){
+        return $this->db->where('hlu_users_username',$this->session->userdata('user_data')[0]['email'])->select(array('hlu_users_status'))->get('hlu_users')->result_array()[0]['hlu_users_status']?true:false;
+    }
 }

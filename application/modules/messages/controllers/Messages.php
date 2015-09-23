@@ -54,9 +54,6 @@ class Messages  extends MX_Controller
 
                 return $this->Mdl_messages->sendTo($todo)?true:false;
                 break;
-
-
-
             default: break;
         }
 
