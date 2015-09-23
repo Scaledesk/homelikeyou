@@ -8,7 +8,7 @@
 
 ?>
 
-<?php echo form_open('Users/recallMail'); ?>
+<?php echo form_open('users/recallMail'); ?>
 <input  type="text" name="pasword" placeholder="Password">
 <input  type="text" name="c_pasword" placeholder="Conform Password">
 

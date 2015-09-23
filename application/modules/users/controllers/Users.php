@@ -76,16 +76,22 @@ class Users extends MX_Controller{
     private function _login($data)
     {
         $this->Mdl_users->setData('checkUser',$data['user_name_email'],$data['password']);
-        if($this->Mdl_users->checkUser()){
-            $this->Mdl_users->setData('setSessionData',$data['user_name_email']);
-            $user_data=$this->Mdl_users->getUserData();
-            $this->_setSessionData('authorize',$user_data);
-            redirect('testapp');
+        if(isAccountActive()){
+            if($this->Mdl_users->checkUser()){
+                $this->Mdl_users->setData('setSessionData',$data['user_name_email']);
+                $user_data=$this->Mdl_users->getUserData();
+                $this->_setSessionData('authorize',$user_data);
+                redirect('testapp');
+            }else{
+                //set flash message that his username and password do not match try again.
+                setInformUser('error','your Username and password do not match');
+                redirect('users');
+            }
         }else{
-            //set flash message that his username and password do not match try again.
-            setInformUser('error','your Username and password do not match');
+            setInformUser('error','Your Account in not activated. Kindly verify your email to logon.');
             redirect('users');
         }
+
     }
 
     /**
@@ -342,61 +348,54 @@ class Users extends MX_Controller{
                 $this->email->from('singhniteshbca@gmail.com', 'Homelikeyou');
                 $this->email->to($email);
 
-                $this->email->subject('Forfget Password');
-                $this->email->message(' <div id="abcd" style="text-align:justify;font-size:18px;">Please Activate your account</div>
+                $this->email->subject('Forgot Password');
+                $this->email->message(' <div id="abcd" style="text-align:justify;font-size:18px;">Reset Password</div>
                            <br/>
-                           <a href="http://localhost/homelikeyou/index.php/Users/recallMail?tqwertyuiasdfghjzxcvbn=' . $token . '">Click here</a>');
+                           <a href="http://localhost/homelikeyou/index.php/users/recallMail?tqwertyuiasdfghjzxcvbn=' . $token . '">Click here</a>');
 
                 if ($this->email->send()) {
 
-                    $this->Mdl_users->forgotPwd('forgot',$email,$token);
-                    echo 'email send successfully';
+                    if($this->Mdl_users->forgotPwd('forgot',$email,$token)){
+                        setInformUser('success','Kindly check your email to reset password');
+                        redirect('users');
+                    }else{
+                        setInformUser('error','Some error Occurred! Kindly retry');
+                        redirect('users');
+                    }
                 } else {
                     echo 'some error occurred';
                     echo $this->email->print_debugger();
                 }
+            }else{
+                setInformUser('error','No such email found in our records. Kindly register with us');
+                redirect('users');
             }
-
-
-
-
         }
-        $this->load->view('forgot_pwd');
     }
-
                 public function forgotMail(){
 
-                        $this->load->view('forgot_pwd2');
+                        $this->load->view('forgot_password');
 
                 }
           public  function  recallMail()
           {
 
-
               if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-
-
-//                       echo $this->input->post['pasword'];
-//                       echo $this->input->post['c_pasword'];
                   $pass = $this->input->post('pasword');
                   $pass_c = $this->input->post('c_pasword');
                   if ($pass == $pass_c) {
                       $pass = password_hash($pass, PASSWORD_DEFAULT);
                       $this->Mdl_users->setData('pass', $pass);
-                      return $this->Mdl_users->forgotPwd('update_pass', $pass);
-
+                      if($this->Mdl_users->forgotPwd('update_pass', $pass)){
+                       setInformUser('success','Your password updated successfully! kindly login with new password to continue.');
+                          redirect('users');
+                      };
                   } else {
                       echo "Password not match ";
                   }
-                  // echo $this->_updateProfile('step1',$this->input->post())?"your profiles inserted sucessfully":"sorry, some error occured";
-                  // $this->Mdl_profiles->setData($todo,$data['address'],$data['pin'],$data['state'],$data['country'],$this->session->userdata['user_data']['user_id']);
-                  //  return $this->Mdl_profiles->updateProfile($todo)?true:false;
-
               }
-//              $token=$_REQUEST['tqwertyuiasdfghjzxcvbn'];
               if (isset($_REQUEST['tqwertyuiasdfghjzxcvbn'])) {
                   $token = $this->input->post_get('tqwertyuiasdfghjzxcvbn');
-//              $this->Mdl_users->setData('token',$token);
                   $this->session->set_userdata('token', $token);
                   $this->load->view('update_password');
                   //echo $token;
@@ -436,7 +435,6 @@ class Users extends MX_Controller{
 
 
     }
-
     public function verifyEmail(){
 
 
@@ -446,4 +444,4 @@ class Users extends MX_Controller{
         redirect('users');
     }
 
-   }
+}

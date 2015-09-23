@@ -372,12 +372,8 @@ class Mdl_users extends CI_Model
     {
         switch (func_get_arg(0)) {
             case'get_email': {
-                $email = $this->getUserName();
-
-                // die();
-                return $this->db->where('hlu_users_username',$email)->select(array('hlu_users_id'))->get('hlu_users')->result_array() ? true : false;
+                return $this->db->where('hlu_users_username',$this->getUserName())->select(array('hlu_users_id'))->get('hlu_users')->result_array() ? true : false;
                 break;
-                // $users= $this->db->select('hlu_users_username')->get('hlu_users')->result_array();
             }
             case'forgot': {
                 $data = [
@@ -438,6 +434,6 @@ class Mdl_users extends CI_Model
         ])?true:false;
     }
     public function isActive(){
-        return $this->db->where('hlu_users_username',$this->session->userdata('user_data')[0]['email'])->select(array('hlu_users_status'))->get('hlu_users')->result_array()[0]['hlu_users_status']?true:false;
+        return $this->db->where('hlu_users_username',$this->getUserName())->select(array('hlu_users_status'))->get('hlu_users')->result_array()[0]['hlu_users_status']?true:false;
     }
 }
