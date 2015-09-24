@@ -384,16 +384,24 @@ class Mdl_users extends CI_Model
             }
             case'update_pass': {
                 $this->getPassword();
-                $token=$this->session->userdata('token');
-                $this->session->unset_userdata('token');
-                $email= $this->db->where('hlu_forgot_pwd_password',$token)->select('hlu_forgot_pwd_email')->get('hlu_forgot_pwd')->result_array();
-                $email= $email[0]['hlu_forgot_pwd_email'];
-                return $this->db->where('hlu_users_username',$email)->update('hlu_users',['hlu_users_password'=>$this->getPassword()])?true:false;
+                $username = $this->session->userdata('username');
+                $this->session->unset_userdata('username');
+                return $this->db->where('hlu_users_username',$username)->update('hlu_users',['hlu_users_password'=>$this->getPassword()])?true:false;
             }
         }
 
     }
 
+    public  function  getEmail()
+        {
+
+
+            $token = $this->session->userdata('token');
+
+            $email = $this->db->where('hlu_forgot_pwd_password', $token)->select('hlu_forgot_pwd_email')->get('hlu_forgot_pwd')->result_array();
+            //$email = $email[0]['hlu_forgot_pwd_email'];
+            return $email;
+        }
     /**
      * @return mixed
      */
@@ -424,11 +432,29 @@ class Mdl_users extends CI_Model
         ])?true:false;
     }
     public function verifyEmail(){
-        return $this->db->where('hlu_users_token',$this->getToken())->update('hlu_users',[
-        'hlu_users_status'=>'1'
-        ])?true:false;
+
+        $this->db->where('hlu_users_token',$this->getToken())->update('hlu_users',['hlu_users_status'=>'1']);
+       if($this->db->affected_rows()){
+            $this->db->where('hlu_users_token',$this->getToken())->update('hlu_users',[
+               'hlu_users_token'=>NULL]);
+           return true;
+       }else{
+
+
+           return false;
+       }
+
+
+
+
     }
     public function isActive(){
         return $this->db->where('hlu_users_username',$this->getUserName())->select(array('hlu_users_status'))->get('hlu_users')->result_array()[0]['hlu_users_status']?true:false;
     }
+
+   public function removeToken(){
+       $token = $this->session->userdata('token');
+       return $this->db->where('hlu_forgot_pwd_password',$token)->delete('hlu_forgot_pwd')?true:false;
+   }
+
 }

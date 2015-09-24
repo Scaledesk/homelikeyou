@@ -345,7 +345,7 @@ class Users extends MX_Controller{
             $this->Mdl_users->setData('get_email', $email,$token);
             if ($this->Mdl_users->forgotPwd('get_email',$email)) {
 
-                $this->email->from('singhniteshbca@gmail.com', 'Homelikeyou');
+                $this->email->from('nkscoder@gmail.com', 'Homelikeyou');
                 $this->email->to($email);
 
                 $this->email->subject('Forgot Password');
@@ -355,7 +355,9 @@ class Users extends MX_Controller{
                 if ($this->email->send()) {
 
                     if($this->Mdl_users->forgotPwd('forgot',$email,$token)){
+
                         setInformUser('success','Kindly check your email to reset password');
+
                         redirect('users');
                     }else{
                         setInformUser('error','Some error Occurred! Kindly retry');
@@ -386,7 +388,8 @@ class Users extends MX_Controller{
                       $pass = password_hash($pass, PASSWORD_DEFAULT);
                       $this->Mdl_users->setData('pass', $pass);
                       if($this->Mdl_users->forgotPwd('update_pass', $pass)){
-                       setInformUser('success','Your password updated successfully! kindly login with new password to continue.');
+                          $this->removeToken();
+                          setInformUser('success','Your password updated successfully! kindly login with new password to continue.');
                           redirect('users');
                       };
                   } else {
@@ -396,7 +399,19 @@ class Users extends MX_Controller{
               if (isset($_REQUEST['tqwertyuiasdfghjzxcvbn'])) {
                   $token = $this->input->post_get('tqwertyuiasdfghjzxcvbn');
                   $this->session->set_userdata('token', $token);
-                  $this->load->view('update_password');
+                 if($data['email']=$this->getEmail()){
+                     $email=$data['email'][0]['hlu_forgot_pwd_email'];
+
+                     $this->session->set_userdata('username',$email);
+                     $this->removeToken();
+                     $this->load->view('update_password');
+                 }
+                  else{
+
+                      setInformUser('error','Your token has expired !  Try Again.');
+                      redirect('users');
+                  }
+
               }
 
           }
@@ -427,7 +442,19 @@ class Users extends MX_Controller{
 
               $token=$this->input->post_get('tqwertyuiasdfghjzxcvbn');
             $this->Mdl_users->setData('token',$token);
-        $this->Mdl_users->verifyEmail()?setInformUser('success',"email verified successfully"):setInformUser('error',"email not verified! Try Again");
+        $this->Mdl_users->verifyEmail()?setInformUser('success',"email verified successfully"):setInformUser('error',"Your token has expired");
         redirect('users');
     }
+
+    public function removeToken(){
+
+        return $this->Mdl_users->removeToken()?true:false;
+
+    }
+
+   public  function getEmail(){
+         $data=$this->Mdl_users->getEmail();
+      return $data;
+
+   }
 }
