@@ -399,7 +399,6 @@ class Mdl_users extends CI_Model
             $token = $this->session->userdata('token');
 
             $email = $this->db->where('hlu_forgot_pwd_password', $token)->select('hlu_forgot_pwd_email')->get('hlu_forgot_pwd')->result_array();
-            //$email = $email[0]['hlu_forgot_pwd_email'];
             return $email;
         }
     /**
