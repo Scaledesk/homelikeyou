@@ -63,8 +63,23 @@ function getInformUser(){
         echo $ci->session->flashdata('message');
     }
 }
+
+/**
+ * @return bool
+ */
 function isAccountActive(){
     $ci=ci::get_instance();
     $ci->load->Model('users/Mdl_users');
     return $ci->Mdl_users->isActive()?true:false;
+}
+
+/**
+ * credit keys to users wallet when some conditions met
+ * @return bool
+ */
+ function offerCredit($wallet_id,$transaction_description,$transaction_type,$transaction_amount){
+    $ci=CI::get_instance();
+    $ci->load->Model('wallet/Mdl_wallet');
+    $ci->Mdl_wallet->setData(strtolower(Wallet_transaction_type::CREDIT),array('users_email'=>$wallet_id,'transaction_description'=>$transaction_description,'transaction_type'=>$transaction_type,'transaction_amount'=>$transaction_amount));
+    return $ci->Mdl_wallet->doWalletTransaction(strtolower(Wallet_transaction_type::CREDIT));
 }
