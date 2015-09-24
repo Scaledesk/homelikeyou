@@ -18,11 +18,11 @@ class Social_accounts extends MX_Controller{
     $this->load->view('index.php',$data);
     }
     public function addFacebookAccount(){
-//    $fb=Facebook::getFb();
-        $fb = new Facebook\Facebook([
+        //  $fb=Facebook::getFb();
+        $fb= new Facebook\Facebook([
             'app_id' => '1659779297592952',
-            'app_secret' => '12f070df1d8ba88fded6413b8b7d0b3d',
-            'default_graph_version' => 'v2.2',
+            'app_secret' =>'12f070df1d8ba88fded6413b8b7d0b3d',
+            'default_graph_version' => 'v2.2'
         ]);
         $helper = $fb->getRedirectLoginHelper();
 
@@ -32,11 +32,11 @@ class Social_accounts extends MX_Controller{
     }
 
     public function doFacebookLogin(){
-//        $fb=Facebook::getFb();
-        $fb = new Facebook\Facebook([
+        //$fb=Facebook::getFb();
+        $fb= new Facebook\Facebook([
             'app_id' => '1659779297592952',
-            'app_secret' => '12f070df1d8ba88fded6413b8b7d0b3d',
-            'default_graph_version' => 'v2.2',
+            'app_secret' =>'12f070df1d8ba88fded6413b8b7d0b3d',
+            'default_graph_version' => 'v2.2'
         ]);
         $helper = $fb->getRedirectLoginHelper();
 
@@ -93,7 +93,7 @@ class Social_accounts extends MX_Controller{
 
             $_SESSION['fb_access_token'] = (string) $accessToken;
             if($this->_shareWithFacebook($fb, $user_token)) //may be true or false
-            {
+            {   offerCredit($this->session->userdata('user_data')['user_id'],'Add 50 keys to user wallet as shared on facebook',strtolower(Wallet_transaction_type::CREDIT),50);
                 try {
                 // Returns a `Facebook\FacebookResponse` object
                 $response = $fb->get('/me?fields=id,name,email', $accessToken);
@@ -123,12 +123,10 @@ class Social_accounts extends MX_Controller{
                 }else{
                     setInformUser('error','Some error occurred');
                     redirect('social_accounts');
-                }
+                   }
                 }
             }
-
         }
-
     }
 
     /**
