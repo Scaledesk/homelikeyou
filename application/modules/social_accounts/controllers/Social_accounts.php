@@ -93,7 +93,7 @@ class Social_accounts extends MX_Controller{
 
             $_SESSION['fb_access_token'] = (string) $accessToken;
             if($this->_shareWithFacebook($fb, $user_token)) //may be true or false
-            {   offerCredit($this->session->userdata('user_data')['user_id'],'Add 50 keys to user wallet as shared on facebook',strtolower(Wallet_transaction_type::CREDIT),50);
+            {   $this->_callUpdateOffers();
                 try {
                 // Returns a `Facebook\FacebookResponse` object
                 $response = $fb->get('/me?fields=id,name,email', $accessToken);
@@ -155,6 +155,23 @@ class Social_accounts extends MX_Controller{
             /*echo 'Facebook SDK returned an error: ' . $e->getMessage();
             exit;*/
             return false;
+        }
+    }
+    private function _callUpdateOffers()
+    {
+        $this->load->Model('offers/Mdl_offers');
+        if(!$this->Mdl_offers->checkOfferStatus('fb_share')){
+            if(offerCredit($this->session->userdata('user_data')['user_id'],'Add 50 keys to user wallet as shared on facebook',strtolower(Wallet_transaction_type::CREDIT),50)){
+                $this->Mdl_offers->setData('update_offer_fb_share',[
+                    'id'=>$this->session->userdata('user_data')['user_id'],
+                    'fb_share'=>'1'
+                ]);
+                return $this->Mdl_offers->update();
+            }else{
+                return false;
+            }
+        }else{
+        return true;
         }
     }
 }

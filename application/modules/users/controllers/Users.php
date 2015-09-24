@@ -102,6 +102,7 @@ class Users extends MX_Controller{
         $this->Mdl_users->setData('register',$data['user_name_email'],$data['password'],$data['user_level']);
         if($this->Mdl_users->register('normal_registration')){
             $this->_callCreateWallet();
+            $this->_callCreateOffers();
             if($this->sendMail()){
                 echo $this->Mdl_users->insertToken()?"your account successfully created":"some error in inserting token";
             }else{
@@ -227,6 +228,7 @@ class Users extends MX_Controller{
             $this->Mdl_users->register('social_registration');
             //inform the user that his account is successfully registered, so he/she can login
             $this->_callCreateWallet();
+            $this->_callCreateOffers();
             redirect('users');
           }
         }
@@ -321,6 +323,7 @@ class Users extends MX_Controller{
                     $this->Mdl_users->register('social_registration');
                     //inform the user that his account is successfully registered, so he/she can login
                     $this->_callCreateWallet();
+                    $this->_callCreateOffers();
                     redirect('users');
                 }
         }
@@ -429,5 +432,19 @@ class Users extends MX_Controller{
             $this->Mdl_users->setData('token',$token);
         $this->Mdl_users->verifyEmail()?setInformUser('success',"email verified successfully"):setInformUser('error',"email not verified! Try Again");
         redirect('users');
+    }
+
+    private function _callCreateOffers()
+    {
+        $this->load->Model('offers/Mdl_offers');
+        if(offerCredit($this->Mdl_users->getUserId(),'add 100 keys to user wallet on sign up',strtolower(Wallet_transaction_type::CREDIT),100)){
+        $this->Mdl_offers->setData('create_offer',[
+            'id'=>$this->Mdl_users->getUserId(),
+            'sign_up'=>'1'
+        ]);
+            return $this->Mdl_offers->insert();
+            }else{
+            return false;
+        }
     }
 }
