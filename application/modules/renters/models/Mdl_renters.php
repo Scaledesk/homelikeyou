@@ -92,8 +92,6 @@ class Mdl_renters extends CI_Model
                 break;
 
         }
-
-
     }
 
 
