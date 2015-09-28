@@ -75,9 +75,12 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'ec2-52-88-21-108.us-west-2.compute.amazonaws.com',
+//	'hostname' => 'ec2-52-88-21-108.us-west-2.compute.amazonaws.com',
+//	'username' => 'root',
+//	'password' => 'pw',
+    'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => 'pw',
+	'password' => 'tushar',
 	'database' => 'hlu',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

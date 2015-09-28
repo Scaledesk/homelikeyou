@@ -83,3 +83,20 @@ function isAccountActive(){
     $ci->Mdl_wallet->setData(strtolower(Wallet_transaction_type::CREDIT),array('users_email'=>$wallet_id,'transaction_description'=>$transaction_description,'transaction_type'=>$transaction_type,'transaction_amount'=>$transaction_amount));
     return $ci->Mdl_wallet->doWalletTransaction(strtolower(Wallet_transaction_type::CREDIT));
 }
+
+//test if logged in user is host or not
+function isHost(){
+    $ci=CI::get_instance();
+    if(checkSession()){
+      return strtolower($ci->session->userdata('user_data')['user_role_name'])=='host'?true :false;
+    }
+    return false;
+}
+//test if logged in user is guest or not
+function isGuest(){
+    $ci=CI::get_instance();
+    if(checkSession()){
+        return strtolower($ci->session->userdata('user_data')['user_role_name'])=='guest'?true :false;
+    }
+    return false;
+}
