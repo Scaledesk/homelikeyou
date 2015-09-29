@@ -205,15 +205,14 @@ class Mdl_calendar extends CI_Model {
         ];
     }
     public function getCalendarArray($home_id){
+        // in future we might change it for security, check if user logged in, his permissions etc
         $data=$this->db->where('hlu_renter_home_calendar_home_id',$home_id)->get('hlu_renter_home_calendar')->result_array();
         $calendars=array();
         foreach($data as $record){
             $this->setData('returnArray',$record);
         array_push($calendars,$this->toArray());
         }
-        echo '<pre/>';
-        print_r($calendars);
-        die;
+        return $calendars;
     }
 
 }

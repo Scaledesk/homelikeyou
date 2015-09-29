@@ -58,6 +58,10 @@ class Hlu_calendar extends MX_Controller{
         return $this->Mdl_calendar->update();
     }
     public function getCalendarArray($home_id){
-        $this->Mdl_calendar->getCalendarArray($home_id);
+        // this way we get calendars array for the availability of apartment or home or etc
+        $calendars=$this->Mdl_calendar->getCalendarArray($home_id);
+        echo '<pre/>';
+        print_r($calendars);
+        die;
     }
 }
