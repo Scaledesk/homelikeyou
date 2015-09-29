@@ -5,7 +5,7 @@
  * Date: 9/25/2015
  * Time: 5:32 PM
  */
-
+getInformUser();
 ?>
 <?php echo form_open('renters'); ?>
 <input type="text" name="home_type" placeholder="home_type"/></br>

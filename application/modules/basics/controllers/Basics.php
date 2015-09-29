@@ -20,11 +20,7 @@ class Basics extends MX_Controller
     public function index()
     {
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-
-
             echo $this->_basics( $this->input->post()) ? "your inserted sucessfully" : "sorry, some error occured";
-
-
         } else {
 
 
@@ -32,19 +28,9 @@ class Basics extends MX_Controller
 
         }
     }
-
-
-
     private function _basics($data){
-
-
-
         $this->Mdl_basics->setData(/*"2"$this->session->userdata['user_data']['user_id'],*/$data['basics_id'],$data['basics_bedrooms'],$data['basics_beds'],$data['basics_beds'],$data['basics_bathrooms']);
         return $this->Mdl_basics->basics()?true:false;
-
-
-
-
     }
 
 

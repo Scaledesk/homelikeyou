@@ -4,10 +4,8 @@
  * User: Nitesh
  * Date: 9/26/2015
  * Time: 6:36 PM
- */?>
-
-
-
+ */
+getInformUser();?>
 <?php echo form_open('basics'); ?>
 <input type="text"   name="basics_id"  placeholder="basics_id"> </br>
 <input type="text"  name="basics_beds" placeholder="basics_beds"> </br>

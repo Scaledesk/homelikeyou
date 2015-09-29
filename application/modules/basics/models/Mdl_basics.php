@@ -8,7 +8,7 @@
  */
 class Mdl_basics extends CI_Model
 {
-     private $basics_id;
+    private $basics_id;
     private $basics_bedrooms;
     private $basics_beds;
     private $basics_bathrooms;
