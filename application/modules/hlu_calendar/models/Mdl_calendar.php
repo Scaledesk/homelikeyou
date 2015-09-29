@@ -149,6 +149,7 @@ class Mdl_calendar extends CI_Model {
             $this->setEndDate(func_get_arg(1)['end_date']);
             $this->setCheckIn(func_get_arg(1)['check_in']);
             $this->setCheckOut(func_get_arg(1)['check_out']);
+            break;
         }
         default: break;
         }
