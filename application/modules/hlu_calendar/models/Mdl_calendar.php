@@ -133,7 +133,7 @@ class Mdl_calendar extends CI_Model {
     public function setData(){
     switch(func_get_arg(0)){
         case 'insert':{
-            $this->setHomeId(1);// currently this is given manually, atfter that it will come dynamically either by session or by some other method
+        $this->setHomeId(1);// currently this is given manually, atfter that it will come dynamically either by session or by some other method
         $this->setAvailable(func_get_arg(1)['availability']);
         $this->setStartDate(func_get_arg(1)['start_date']);
         $this->setEndDate(func_get_arg(1)['end_date']);
@@ -149,6 +149,16 @@ class Mdl_calendar extends CI_Model {
             $this->setEndDate(func_get_arg(1)['end_date']);
             $this->setCheckIn(func_get_arg(1)['check_in']);
             $this->setCheckOut(func_get_arg(1)['check_out']);
+            break;
+        }
+        case 'returnArray' : {
+            $this->setHomeId(func_get_arg(1)['hlu_renter_home_calendar_home_id']);// currently this is given manually, atfter that it will come dynamically either by session or by some other method
+            $this->setId(func_get_arg(1)['hlu_renter_home_calendar_id']);// currently this is given manually, atfter that it will come dynamically either by session or by some other method
+            $this->setAvailable(func_get_arg(1)['hlu_renter_home_calendar_available']);
+            $this->setStartDate(func_get_arg(1)['hlu_renter_home_calendar_start_date']);
+            $this->setEndDate(func_get_arg(1)['hlu_renter_home_calendar_end_date']);
+            $this->setCheckIn(func_get_arg(1)['hlu_renter_home_calendar_check_in']);
+            $this->setCheckOut(func_get_arg(1)['hlu_renter_home_calendar_check_out']);
             break;
         }
         default: break;
@@ -194,4 +204,15 @@ class Mdl_calendar extends CI_Model {
         'check_out'=>$this->getCheckOut()
         ];
     }
+    public function getCalendarArray($home_id){
+        // in future we might change it for security, check if user logged in, his permissions etc
+        $data=$this->db->where('hlu_renter_home_calendar_home_id',$home_id)->get('hlu_renter_home_calendar')->result_array();
+        $calendars=array();
+        foreach($data as $record){
+            $this->setData('returnArray',$record);
+        array_push($calendars,$this->toArray());
+        }
+        return $calendars;
+    }
+
 }
