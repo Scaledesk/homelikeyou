@@ -227,18 +227,18 @@ class Mdl_safety  extends CI_Model
 
 
         $query=$this->db->get("hlu_renter_home_safety")->result_array();
+         foreach($query as $q) {
+             $data = array(
+                 'safety_id' => $q[0]['hlu_renter_home_safety_id'],
+                 'safety_type' => $q[0]['hlu_renter_home_safety_type'],
+                 'safety_card' => $q[0]['hlu_renter_home_safety_card'],
+                 'fire_alarm' => $q[0]['hlu_renter_home_safety_fire_alarm'],
+                 'fire_extinguisher' => $q[0]['hlu_renter_home_safety_fire_extinguisher'],
+                 'emergency_exit' => $q[0]['hlu_renter_home_safety_emergency_exit'],
+                 'gas_valve' => $q[0]['hlu_renter_home_safety_gas_valve']
 
-        $data=array(
-            'safety_id'=>$query[0]['hlu_renter_home_safety_id'],
-            'safety_type'=>$query[0]['hlu_renter_home_safety_type'],
-            'safety_card'=>$query[0]['hlu_renter_home_safety_card'],
-            'fire_alarm'=>$query[0]['hlu_renter_home_safety_fire_alarm'],
-            'fire_extinguisher'=>$query[0]['hlu_renter_home_safety_fire_extinguisher'],
-            'emergency_exit'=>$query[0]['hlu_renter_home_safety_emergency_exit'],
-            'gas_valve'=>$query[0]['hlu_renter_home_safety_gas_valve']
-
-        );
-
+             );
+         }
         return $data;
     }
 
