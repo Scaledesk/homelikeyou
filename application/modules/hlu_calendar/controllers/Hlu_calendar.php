@@ -57,4 +57,7 @@ class Hlu_calendar extends MX_Controller{
         $this->Mdl_calendar->setData('update',$data);
         return $this->Mdl_calendar->update();
     }
+    public function getCalendarArray($home_id){
+        $this->Mdl_calendar->getCalendarArray($home_id);
+    }
 }
