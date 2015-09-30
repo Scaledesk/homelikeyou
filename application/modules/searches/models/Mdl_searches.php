@@ -137,23 +137,25 @@ class Mdl_searches extends CI_Model
                  $this->getHomeType();
                  $this->db->like('hlu_renter_home_type', $this->getHomeType());
                 // $this->db->like('LOWER(' .'hlu_renter_home_type'. ')', strtolower($this->getHomeType()));
-                 $data= $this->db->get('hlu_renter_home');
+                 $data= $this->db->get('hlu_renter_home')->result();
                // echo "</>";
-                echo '<pre/>';
+               /* echo '<pre/>';
                  print_r($data->result());
-                 die();
+                 die(); */
+                return $data;
                  break;
                 }
             case 'room': {
                 $this->_validate(func_get_arg(0));
                 $this->db->like('hlu_renter_home_room_type', $this->getHomeType());
-                $data= $this->db->get('hlu_renter_home');
+                $data= $this->db->get('hlu_renter_home')->result();
                 //$this->db->like('LOWER(' .'hlu_renter_home_room_type'. ')', strtolower($this->getRoomType()));
               //  $data = ['hlu_renter_home_room_type' => $this->getHomeType()];
-                echo '<pre/>';
+               /* echo '<pre/>';
                 print_r($data->result());
-                die();
+                die();*/
                // return $this->db->get('hlu_renter_home');
+                return $data;
                 break;
             }
             default :break;

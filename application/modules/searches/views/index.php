@@ -11,6 +11,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  Home Type Searching
 <?php echo form_open('searches'); ?>
 <input type="text" name="home_type" placeholder="home_type"/></br>
+<input type="hidden"name="todo" value="hlm834" />
 <input type="submit" value="submit" name="submit" />
 <?php echo form_close();?>
 
@@ -18,5 +19,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 Room Type Searching
 <?php echo form_open('searches'); ?>
 <input type="text"name="room_type" placeholder="room_type" /></br>
+<input type="hidden"name="todo" value="hlm8734" />
 <input type="submit" value="submit" name="submit" />
 <?php echo form_close();?>

@@ -20,15 +20,21 @@ class Searches extends MX_Controller
     public function index (){
 
        if(strtolower($_SERVER['REQUEST_METHOD'])=='post')
-           {
-              if($_POST['home_type']){
 
-                  $data= $this->_searchHome('home', $this->input->post());
 
+       {
+           $to_do_with_post=$_POST['todo'];
+
+              if( $to_do_with_post=="hlm834"){
+
+                  $data['a']= $this->_searchHome('home', $this->input->post());
+                  echo '<pre/>';
+                  print_r($data['a']);
               }
-               elseif($_POST['room_type']){
-                   $data= $this->_searchRoom('room', $this->input->post());
-
+               elseif( $to_do_with_post=="hlm8734"){
+                   $data['a']= $this->_searchRoom('room', $this->input->post());
+                   echo '<pre/>';
+                 print_r($data['a']);
                }
 
 
@@ -36,6 +42,7 @@ class Searches extends MX_Controller
            }
           else{
               $this->load->view('index');
+             /* $this->load->view('search_view');*/
           }
     }
 
