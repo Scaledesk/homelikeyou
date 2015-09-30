@@ -21,14 +21,13 @@ class Renters extends MX_Controller
                 $to_do_with_post = $_POST['todo'];
                 if ($to_do_with_post == "hlm87654") {
                     if($this->_insertHome('step1', $this->input->post())){
-                        setInformUser('success','Details saved successfully, kindly fill basic details');
+                        setInformUser('success','Details saved successfully, kindly fill these details');
                         $this->session->set_userdata('home_id',$this->Mdl_renters->getCurrentHomeId());
                         redirect('basics');
                     } else{
                         setInformUser('error','Details not saved successfully, try Again');
                         redirect('renters');
                     }
-
                 }
             } else {
                 $this->load->view('index');
@@ -45,5 +44,8 @@ class Renters extends MX_Controller
                         break;
             default:    break;
         }
+    }
+    public function rentAHome(){
+        $this->load->view('renter');
     }
 }
