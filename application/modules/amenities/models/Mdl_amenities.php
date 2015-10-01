@@ -11,6 +11,31 @@ class Mdl_amenities extends CI_Model
 
     private $amenities_id;
     private $amenities_name;
+    private $collection;
+
+    /**
+     * @return mixed
+     */
+    public function getCollection()
+    {
+        return $this->collection;
+    }
+
+    /**
+     * @param mixed $collection
+     */
+    public function setCollection($collection)
+    {
+        $this->collection = $collection;
+    }
+
+    function __construct()
+    {
+        parent::__construct();
+        $this->setCollection($this->db->select('hlu_renter_home_amenities_id,hlu_renter_home_amenities_name')->get('hlu_renter_home_amenities')->result_array());
+
+    }
+
 
     /**
      * @return mixed
@@ -74,17 +99,7 @@ class Mdl_amenities extends CI_Model
 
 
     public function toArray(){
-
-
-        $query=$this->db->get("hlu_renter_home_amenities")->result_array();
-
-        $data=array(
-            'amenities_id'=>$query[0]['hlu_renter_home_amenities_id'],
-            'amenities_name'=>$query[0]['hlu_renter_home_amenities_name']
-
-        );
-
-        return $data;
+        return $this->getCollection();
     }
 
 

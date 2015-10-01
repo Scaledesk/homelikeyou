@@ -6,6 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * Date: 9/29/2015
  * Time: 5:14 PM
  */
+getInformUser();
 ?>
 
 

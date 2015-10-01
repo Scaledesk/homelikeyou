@@ -22,22 +22,24 @@ class Safety extends MX_Controller
     public function index()
     {
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-
-            $to_do_with_post=$_POST['todo'];
-            if ($to_do_with_post=="hlu87687"){
-                echo $this->_updateSafety('update',$this->input->post())?"your  update sucessfully":"sorry, some error occured";
+            if($this->_safety( $this->input->post())){
+                setInformUser('success','Details saved successfully, kindly fill these details');
+                redirect('prices');
+            }else{
+                setInformUser('error','Details not saved successfully, try Again');
+                redirect('safety');
             }
-            else {
-                echo $this->_safety($this->input->post()) ? "your inserted sucessfully" : "sorry, some error occured";
+        } else {
+            $home_id=$this->session->userdata('home_id')?$this->session->userdata('home_id'):'';
+            if($home_id==''){
+                setInformUser('error','First post these details');
+                redirect('renters/rentAHome');
             }
-
-        }
-        else {
             $this->load->view('index');
         }
     }
     private function _safety($data){
-        $this->Mdl_safety->setData(/*"2"$this->session->userdata['user_data']['user_id'],*/$data['safety_id'],$data['safety_type'],$data['fire_alarm'],$data['fire_extinguisher'],$data['gas_valve'],$data['safety_card'],$data['emergency_exit']);
+        $this->Mdl_safety->setData($this->session->userdata('home_id'),$data['safety_type'],$data['fire_alarm'],$data['fire_extinguisher'],$data['gas_valve'],$data['safety_card'],$data['emergency_exit']);
         return $this->Mdl_safety->safety($data)?true:false;
     }
 

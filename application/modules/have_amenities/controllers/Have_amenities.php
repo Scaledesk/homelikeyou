@@ -16,60 +16,51 @@ class Have_amenities extends MX_Controller
         require $_SERVER["DOCUMENT_ROOT"].'/homelikeyou/vendor/autoload.php';
         $this->load->Model('Mdl_have_amenities');
     }
-
-
     public function index()
     {
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-
-            $to_do_with_post=$_POST['todo'];
-            if ($to_do_with_post=="hlu87687"){
-                echo $this->_updateAmenities('update',$this->input->post())?"your  update sucessfully":"sorry, some error occured";
+            if($this->_haveAmenities( $this->input->post())){
+                setInformUser('success','Details saved successfully, kindly fill these details');
+                redirect('photos');
+            }else{
+                setInformUser('error','Details not saved successfully, try Again');
+                redirect('have_amenities');
             }
-            else {
-                echo $this->_haveAmenities($this->input->post()) ? "your inserted sucessfully" : "sorry, some error occured";
+        } else {
+            $home_id=$this->session->userdata('home_id')?$this->session->userdata('home_id'):'';
+            if($home_id==''){
+                setInformUser('error','First post these details');
+                redirect('renters/rentAHome');
             }
-
-         }
-
-
-
-        else {
-
-
-            $this->load->view('index');
-
+            $amenities=$this->getAmenities();
+            $amenities1=array();
+            foreach($amenities as $amenity){
+                $amenities1[$amenity['hlu_renter_home_amenities_id']]=$amenity['hlu_renter_home_amenities_name'];
+            }
+            $data['amenities']=$amenities1;
+            $this->load->view('index',$data);
         }
     }
-
-
-
     private function _haveAmenities($data){
-
-
-
-        $this->Mdl_have_amenities->setData(/*"2"$this->session->userdata['user_data']['user_id'],*/$data['home_id'],$data['amenities_id']);
+        $this->Mdl_have_amenities->setData($this->session->userdata('home_id'),$data['amenities_id']);
         return $this->Mdl_have_amenities->amenities($data)?true:false;
     }
-
-    public function getAmenities(){
+    public function getHaveAmenities(){
         $this->Mdl_have_amenities->toArray();
-
         return;
     }
-
-
     public  function getString(){
 
         $this->Mdl_have_amenities->toString();
     }
-
     private function _updateAmenities($id,$data){
 
         $this->Mdl_have_amenities->setData("update",/*"2"*//*$this->session->userdata['user_data']['user_id']*/$data['have_amenities_id'],$data['home_id'],$data['amenities_id']);
         return $this->Mdl_have_amenities->updateAmenities($id)?true:false;
 
     }
-
-
+    public function getAmenities(){
+        $this->load->Model('amenities/Mdl_amenities');
+        return $this->Mdl_amenities->toArray();
+    }
 }

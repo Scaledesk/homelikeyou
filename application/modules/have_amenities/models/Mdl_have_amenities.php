@@ -59,7 +59,6 @@ class Mdl_have_amenities extends CI_Model
     {
         $this->amenities_amenities_id = $amenities_amenities_id;
     }
-
     public function setData()
     {
         switch(func_get_arg(0)){
@@ -73,8 +72,6 @@ class Mdl_have_amenities extends CI_Model
             default:
                 $this->setAmenitiesHomeId(func_get_arg(0));
                 $this->setAmenitiesAmenitiesId(func_get_arg(1));
-
-
                 break;
         }
 
@@ -109,8 +106,6 @@ public function updateAmenities(){
     return $this->db->where(array('hlu_renter_home_have_amenities_id'=>$this->getAmenitiesId()))->update('hlu_renter_home_have_amenities', $data) ? true : false;
 
 }
-
-
     public function amenities(){
 
         $this->_validate(func_get_arg(0));
@@ -120,12 +115,7 @@ public function updateAmenities(){
             'hlu_renter_home_have_amenities_amenities_id' => $this->getAmenitiesAmenitiesId()];
         return $this->db->insert('hlu_renter_home_have_amenities', $data) ? true : false;
     }
-
-
-
     public function toArray(){
-
-
         $query=$this->db->get("hlu_renter_home_have_amenities")->result_array();
 
         $data=array(
@@ -137,11 +127,7 @@ public function updateAmenities(){
 
         return $data;
     }
-
-
     public function toString(){
-
-
         $query=$this->db->get("hlu_renter_home_have_amenities")->result_array();
         // print_r($query[0]);
         $data=implode(',',$query[0]);

@@ -5,7 +5,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * User: NItesh
  * Date: 9/28/2015
  * Time: 4:31 PM
- */ ?>
+ */
+getInformUser();
+?>
 
 
 <?php echo form_open('prices'); ?>
