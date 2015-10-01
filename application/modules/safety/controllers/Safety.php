@@ -32,42 +32,25 @@ class Safety extends MX_Controller
             }
 
         }
-
-
-
         else {
-
-
             $this->load->view('index');
-
         }
     }
-
-
     private function _safety($data){
-
-
-
         $this->Mdl_safety->setData(/*"2"$this->session->userdata['user_data']['user_id'],*/$data['safety_id'],$data['safety_type'],$data['fire_alarm'],$data['fire_extinguisher'],$data['gas_valve'],$data['safety_card'],$data['emergency_exit']);
         return $this->Mdl_safety->safety($data)?true:false;
     }
 
     public function getSafety(){
         $this->Mdl_safety->toArray();
-
         return;
     }
-
-
     public  function getString(){
-
         $this->Mdl_safety->toString();
     }
-
     private function _updateSafety($id,$data){
 
         $this->Mdl_safety->setData("update",/*"2"$this->session->userdata['user_data']['user_id'],*/$data['safety_id'],$data['safety_type'],$data['fire_alarm'],$data['fire_extinguisher'],$data['gas_valve'],$data['safety_card'],$data['emergency_exit']);
         return $this->Mdl_safety->updateSafety($id)?true:false;
-
     }
 }

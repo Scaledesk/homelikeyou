@@ -12,6 +12,23 @@ class Mdl_renters extends CI_Model
     private $home_type;
     private $room_type;
     private $home_accomodates;
+    private $users_id;
+
+    /**
+     * @return mixed
+     */
+    public function getUsersId()
+    {
+        return $this->users_id;
+    }
+
+    /**
+     * @param mixed $users_id
+     */
+    public function setUsersId($users_id)
+    {
+        $this->users_id = $users_id;
+    }
 
     /**
      * @return mixed
@@ -86,6 +103,7 @@ class Mdl_renters extends CI_Model
                 $this->setHomeType(func_get_arg(1));
                 $this->setRoomType(func_get_arg(2));
                 $this->setHomeAccomodates(func_get_arg(3));
+                $this->setUsersId(func_get_arg(4));
                 break;
             }
             default :
@@ -107,9 +125,6 @@ class Mdl_renters extends CI_Model
                         default :break;
                    }
       }
-
-
-
     public function insertHome(){
                 switch(func_get_arg(0)){
                     case 'step1': {
@@ -119,11 +134,17 @@ class Mdl_renters extends CI_Model
                             'hlu_renter_home_type' => $this->getHomeType(),
                             'hlu_renter_home_room_type' => $this->getRoomType(),
                             'hlu_renter_home_accomodates' => $this->getHomeAccomodates(),
+                            'hlu_renter_home_users_id'=>$this->getUsersId()
                         ];
                         return $this->db->insert('hlu_renter_home', $data) ? true : false;
                         break;
                     }
                     default :break;
                 }
+    }
+    public function getCurrentHomeId(){
+        $id=$this->db->where('hlu_renter_home_users_id',$this->getUsersId())->order_by('hlu_renter_home_id','desc')->select(array('hlu_renter_home_id'))->get('hlu_renter_home',1)->result_array();
+        $this->setHomeId(($id[0]['hlu_renter_home_id']));
+        return $this->getHomeId();
     }
 }

@@ -19,38 +19,31 @@ class Descriptions extends MX_Controller
     public function index()
     {
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-
-
-            echo $this->_description( $this->input->post()) ? "your inserted sucessfully" : "sorry, some error occured";
-
-
+            if($this->_description( $this->input->post())){
+                setInformUser('success','Details saved successfully, kindly fill these details');
+                redirect('address');
+            }else{
+                setInformUser('error','Details not saved successfully, try Again');
+                redirect('description');
+            }
         } else {
-
-
+            $home_id=$this->session->userdata('home_id')?$this->session->userdata('home_id'):'';
+            if($home_id==''){
+                setInformUser('error','First post these details');
+                redirect('renters/rentAHome');
+            }
             $this->load->view('index');
-
         }
     }
-
-
-
     private function _description($data){
-
-
-
-        $this->Mdl_descriptions->setData(/*"2"$this->session->userdata['user_data']['user_id'],*/$data['description_id'],$data['description_name'],$data['description_summary']);
+        $this->Mdl_descriptions->setData($this->session->userdata('home_id'),$data['description_name'],$data['description_summary']);
         return $this->Mdl_descriptions->description()?true:false;
     }
-
     public function getdescription(){
         $this->Mdl_descriptions->toArray();
-
         return;
     }
-
-
     public  function getString(){
-
         $this->Mdl_descriptions->toString();
     }
 
