@@ -180,7 +180,15 @@ class Mdl_reviews extends CI_Model
              'home_id' => $this->getHomeId()
          ];
 
-        return $this->db->insert('hlu_post_rating', $data) ? true : false;
+        if($this->db->where(array('post_id'=>$this->getPostId(),'home_id'=>$this->getHomeId()))->select('hlu_post_rating', $data)) {
+            return $this->db->where(array('post_id'=>$this->getPostId(),'home_id'=>$this->getHomeId()))->update('hlu_post_rating', $data) ? true : false;
+        }
+        else{
+
+
+            return $this->db->insert('hlu_post_rating', $data) ? true : false;
+        }
+       // return $this->db->insert('hlu_post_rating', $data) ? true : false;
     }
 
 
@@ -193,7 +201,16 @@ class Mdl_reviews extends CI_Model
 
         ];
 
-         return $this->db->insert('hlu_post_rating', $data) ? true : false;
+
+        if($this->db->where(array('post_id'=>$this->getPostId(),'home_id'=>$this->getHomeId()))->select('hlu_post_rating', $data)) {
+            return $this->db->where(array('post_id'=>$this->getPostId(),'home_id'=>$this->getHomeId()))->update('hlu_post_rating', $data) ? true : false;
+        }
+        else{
+
+
+           return $this->db->insert('hlu_post_rating', $data) ? true : false;
+            }
+
     }
 }
 
