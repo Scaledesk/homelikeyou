@@ -21,7 +21,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <input type="text"   name="emergency_exit"  placeholder="Emergency Exit"> </br>
 
 
-<input type="text"   name="safety_id"  placeholder="Prices Id"> </br>
+<input type="text"   name="safety_id"  placeholder="Safety Id"> </br>
 <input type="submit"  name="submit" value="submit" >
 
 <?php echo form_close(); ?> </br>
@@ -40,7 +40,7 @@ Update
 <input type="text"   name="emergency_exit"  placeholder="Emergency Exit"> </br>
 
 <input type="hidden"   name="todo" value="hlu87687" > </br>
-<input type="text"   name="safety_id"  placeholder="Prices Id"> </br>
+<input type="text"   name="safety_id"  placeholder="Safety Id"> </br>
 <input type="submit"  name="submit" value="submit" >
 
 <?php echo form_close(); ?> </br>
