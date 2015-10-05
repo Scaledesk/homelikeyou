@@ -178,4 +178,12 @@ class Mdl_messages extends CI_Model
     }
     }
 
+
+     public function getEmail(){
+
+       $data= $this->db->get('hlu_users')->result();
+
+        return $data;
+    }
+
 }
