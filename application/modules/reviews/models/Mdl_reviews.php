@@ -128,6 +128,10 @@ class Mdl_reviews extends CI_Model
                 $this->setComment(func_get_arg(3));
                 break;
             }
+            case "approve":{
+                $this->setRatingId(func_get_arg(1));
+                break;
+            }
             default:
                 $this->setPostId(func_get_arg(0));
                 $this->setHomeId(func_get_arg(1));
@@ -148,6 +152,8 @@ class Mdl_reviews extends CI_Model
 
                 break;
             }
+
+
             default:
                 $this->setPostId($this->security->xss_clean($this->getPostId()));
                 $this->setHomeId($this->security->xss_clean($this->getHomeId()));
@@ -158,9 +164,19 @@ class Mdl_reviews extends CI_Model
 
 
     }
+
+    public function approve(){
+        $data = [
+            'status' =>1
+
+        ];
+        return $this->db->where(array('rating_id'=>$this->getRatingId()))->update('hlu_post_rating', $data) ? true : false;
+
+    }
     public function getRating(){
 
-        $query=$this->db->get("hlu_post_rating")->result_array();
+        $query=$this->db->get("hlu_reviews_comment")->result_array();
+
         return $query;
 
     }

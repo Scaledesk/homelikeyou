@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Nitesh
- * Date: 10/3/2015
- * Time: 4:31 PM
+ * Date: 10/12/2015
+ * Time: 12:31 PM
  */ ?>
 
 
@@ -12,7 +12,7 @@
 <html >
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard - Home Like you</title>
+    <title>Users Dashboard - Home Like you</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <h1><a href="#" title="Bootstrap Template">Home Like You</a>
-                        <p class="lead">{Admin Dashboard }</p></h1>
+                        <p class="lead">{Users Dashboard }</p></h1>
                 </div>
                 <div class="col-sm-6">
                     <div class="pull-right  hidden-xs">
@@ -73,12 +73,11 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="HeaderController">
                 <ul class="nav navbar-nav">
-                    <li ><a href="<?php echo base_url().'hlu_email_settings '; ?>">Email Setting </a></li>
-                    <li ><a href="<?php echo base_url().'roles_permissions '; ?>">Roles & Permission </a></li>
-                    <li ><a href="<?php echo base_url().'wallet '; ?>">Wallet Setting</a></li>
-                    <li ><a href="<?php echo base_url().'messages '; ?>">Messaging</a></li>
-                    <li ><a href="<?php echo base_url().'reviews '; ?>">Reviews</a></li>
-                    <li ><a href="<?php echo base_url().'users/usersViews '; ?>">Users Views </a></li>
+                    <li ><a href="<?php echo base_url().' '; ?>">Listings </a></li>
+                    <li ><a href="<?php echo base_url().' '; ?>">Profile Setting</a></li>
+                    <li ><a href="<?php echo base_url().''; ?>">Notification</a></li>
+                    <li ><a href="<?php echo base_url().' '; ?>">Massages</a></li>
+                    <li ><a href="<?php echo base_url().' '; ?>">verifation </a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                         <ul class="dropdown-menu">

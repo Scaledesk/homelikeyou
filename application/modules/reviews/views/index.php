@@ -25,3 +25,7 @@ Total Rating <p> <?php echo $rating[0]['total_points']?></p>
 
     <input type="submit" name="submit" value="submit"/>
 <?php echo form_close();?>
+
+
+
+<div class="col-xs-2">class="form-control"
