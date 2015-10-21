@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - hlu@localhost" uuid="a667ffe1-7c8c-465a-b826-12c24710fcb9">
+    <database-info product="MySQL" version="5.6.25-0ubuntu0.15.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="hlu"/>
+    <table name="ci_sessions" schema="" catalog="hlu" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="40" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ip_address" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="timestamp" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="data" sqlType="BLOB" precision="65535" scale="0" nullable="false" jdbcType="-4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="ci_sessions_timestamp" unique="false" columns="timestamp"/>
+    </table>
+    <table name="hlu_email_settings" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_email_settings_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ=="/>
+      <column name="hlu_email_settings_smtp_host" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_email_settings_smtp_user" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_email_settings_smtp_pass" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_email_settings_port" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="hlu_email_settings_id"/>
+      <index name="hlu_email_settings_smtp_host_UNIQUE" unique="true" columns="hlu_email_settings_smtp_host"/>
+      <index name="hlu_email_settings_smtp_user_UNIQUE" unique="true" columns="hlu_email_settings_smtp_user"/>
+    </table>
+    <table name="hlu_forgot_pwd" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_forgot_pwd_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="hlu_forgot_pwd_email" sqlType="VARCHAR" precision="250" scale="0" nullable="false" jdbcType="12"/>
+      <column name="hlu_forgot_pwd_password" sqlType="VARCHAR" precision="250" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="hlu_forgot_pwd_id"/>
+    </table>
+    <table name="hlu_messages" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_messages_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="hlu_messages_title" sqlType="VARCHAR" precision="250" scale="0" nullable="false" jdbcType="12"/>
+      <column name="hlu_messages_body" sqlType="VARCHAR" precision="6000" scale="0" nullable="false" jdbcType="12"/>
+      <column name="hlu_messages_send_to" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="hlu_messages_send_by" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="hlu_messages_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="hlu_messages_status" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="hlu_messages_attached" sqlType="VARCHAR" precision="250" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="hlu_messages_id"/>
+      <foreign-key name="messages_id" columns="hlu_messages_send_to" ref-table="hlu_users" ref-schema="" ref-catalog="hlu" ref-columns="hlu_users_id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <index name="hlu_message_id_idx" unique="false" columns="hlu_messages_send_to"/>
+    </table>
+    <table name="hlu_messages_users" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_messages_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="hlu_messages_users" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="hlu_messages_mailbox" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="hlu_messages__id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="hlu_messages_id"/>
+    </table>
+    <table name="hlu_offers" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_offers_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="hlu_offers_sign_up" sqlType="ENUM" precision="2" scale="0" nullable="true" jdbcType="1" def="JzAn"/>
+      <column name="hlu_offers_fb_share" sqlType="ENUM" precision="2" scale="0" nullable="true" jdbcType="1" def="JzAn"/>
+      <column name="hlu_offers_phone_verification" sqlType="ENUM" precision="2" scale="0" nullable="true" jdbcType="1" def="JzAn"/>
+      <column name="hlu_offers_fb_friends_invite" sqlType="ENUM" precision="2" scale="0" nullable="true" jdbcType="1" def="JzAn"/>
+      <column name="hlu_offers_id_verification" sqlType="ENUM" precision="2" scale="0" nullable="true" jdbcType="1" def="JzAn"/>
+      <primary-key name="PRIMARY" columns="hlu_offers_id"/>
+      <foreign-key name="fk_hlu_offers_1" columns="hlu_offers_id" ref-table="hlu_users" ref-schema="" ref-catalog="hlu" ref-columns="hlu_users_id" update-rule="0" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="hlu_permissions" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_permissions_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="hlu_permissions_name" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="hlu_permissions_id"/>
+      <exported-key name="fk_hlu_roles_permissions_2" table="hlu_roles_permissions" schema="" catalog="hlu" columns="hlu_roles_permissions_permission_id"/>
+      <index name="hlu_permissions_name_UNIQUE" unique="true" columns="hlu_permissions_name"/>
+    </table>
+    <table name="hlu_profiles" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_profiles_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="hlu_profiles_first_name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_profiles_last_name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_profiles_image" sqlType="VARCHAR" precision="250" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_profiles_address" sqlType="VARCHAR" precision="250" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_profiles_pin" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_profiles_state" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_profiles_country" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="hlu_profiles_id"/>
+      <foreign-key name="fk_hlu_profiles_1" columns="hlu_profiles_id" ref-table="hlu_users" ref-schema="" ref-catalog="hlu" ref-columns="hlu_users_id" update-rule="0" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="hlu_renter_home" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_renter_home_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="hlu_renter_home_type" sqlType="ENUM" precision="10" scale="0" nullable="true" jdbcType="1"/>
+      <column name="hlu_renter_home_room_type" sqlType="ENUM" precision="5" scale="0" nullable="true" jdbcType="1"/>
+      <column name="hlu_renter_home_accomodates" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="hlu_renter_home_id"/>
+      <exported-key name="fk_hlu_renter_home_address_1" table="hlu_renter_home_address" schema="" catalog="hlu" columns="hlu_renter_home_address_id"/>
+      <exported-key name="fk_hlu_renter_home_basics_1" table="hlu_renter_home_basics" schema="" catalog="hlu" columns="hlu_renter_home_basics_id"/>
+      <exported-key name="fk_hlu_renter_home_calendar_1" table="hlu_renter_home_calendar" schema="" catalog="hlu" columns="hlu_renter_home_calendar_home_id"/>
+      <exported-key name="fk_hlu_ewnter_home_description_1" table="hlu_renter_home_description" schema="" catalog="hlu" columns="hlu_renter_home_description_id"/>
+      <exported-key name="fk_hlu_renter_home_have_amenities_2" table="hlu_renter_home_have_amenities" schema="" catalog="hlu" columns="hlu_renter_home_have_amenities_home_id"/>
+      <exported-key name="fk_hlu_renter_home_mobile_1" table="hlu_renter_home_mobile" schema="" catalog="hlu" columns="hlu_renter_home_mobile_home_id"/>
+      <exported-key name="fk_hlu_renter_home_photo_1" table="hlu_renter_home_photo" schema="" catalog="hlu" columns="hlu_renter_home_photo_home_id"/>
+      <exported-key name="fk_hlu_renter_home_price_1" table="hlu_renter_home_price" schema="" catalog="hlu" columns="hlu_renter_home_price_id"/>
+      <exported-key name="fk_hlu_renter_home_safety_1" table="hlu_renter_home_safety" schema="" catalog="hlu" columns="hlu_renter_home_safety_id"/>
+    </table>
+    <table name="hlu_renter_home_address" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_renter_home_address_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="hlu_renter_home_address_hno" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_renter_home_address_street" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_renter_home_address_city" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_renter_home_address_state" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_renter_home_address_country" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_renter_home_address_zip" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="hlu_renter_home_address_id"/>
+      <foreign-key name="fk_hlu_renter_home_address_1" columns="hlu_renter_home_address_id" ref-table="hlu_renter_home" ref-schema="" ref-catalog="hlu" ref-columns="hlu_renter_home_id" update-rule="0" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="hlu_renter_home_amenities" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_renter_home_amenities_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="hlu_renter_home_amenities_name" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="hlu_renter_home_amenities_id"/>
+      <exported-key name="fk_hlu_renter_home_have_amenities_1" table="hlu_renter_home_have_amenities" schema="" catalog="hlu" columns="hlu_renter_home_have_amenities_amenities_id"/>
+    </table>
+    <table name="hlu_renter_home_basics" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_renter_home_basics_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="hlu_renter_home_basics_bedrooms" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hlu_renter_home_basics_beds" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hlu_renter_home_basics_bathrooms" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="hlu_renter_home_basics_id"/>
+      <foreign-key name="fk_hlu_renter_home_basics_1" columns="hlu_renter_home_basics_id" ref-table="hlu_renter_home" ref-schema="" ref-catalog="hlu" ref-columns="hlu_renter_home_id" update-rule="0" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="hlu_renter_home_calendar" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_renter_home_calendar_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="hlu_renter_home_calendar_home_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hlu_renter_home_calendar_available" sqlType="ENUM" precision="10" scale="0" nullable="true" jdbcType="1"/>
+      <column name="hlu_renter_home_calendar_start_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="hlu_renter_home_calendar_end_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="hlu_renter_home_calendar_check_in" sqlType="TIME" precision="8" scale="0" nullable="true" jdbcType="92"/>
+      <column name="hlu_renter_home_calendar_check_out" sqlType="TIME" precision="8" scale="0" nullable="true" jdbcType="92"/>
+      <primary-key name="PRIMARY" columns="hlu_renter_home_calendar_id"/>
+      <foreign-key name="fk_hlu_renter_home_calendar_1" columns="hlu_renter_home_calendar_home_id" ref-table="hlu_renter_home" ref-schema="" ref-catalog="hlu" ref-columns="hlu_renter_home_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="fk_hlu_renter_home_calendar_1_idx" unique="false" columns="hlu_renter_home_calendar_home_id"/>
+    </table>
+    <table name="hlu_renter_home_description" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_renter_home_description_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="hlu_renter_home_description_name" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_renter_home_description_summary" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="hlu_renter_home_description_id"/>
+      <foreign-key name="fk_hlu_ewnter_home_description_1" columns="hlu_renter_home_description_id" ref-table="hlu_renter_home" ref-schema="" ref-catalog="hlu" ref-columns="hlu_renter_home_id" update-rule="0" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="hlu_renter_home_have_amenities" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_renter_home_have_amenities_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="hlu_renter_home_have_amenities_home_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hlu_renter_home_have_amenities_amenities_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="hlu_renter_home_have_amenities_id"/>
+      <foreign-key name="fk_hlu_renter_home_have_amenities_1" columns="hlu_renter_home_have_amenities_amenities_id" ref-table="hlu_renter_home_amenities" ref-schema="" ref-catalog="hlu" ref-columns="hlu_renter_home_amenities_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="fk_hlu_renter_home_have_amenities_2" columns="hlu_renter_home_have_amenities_home_id" ref-table="hlu_renter_home" ref-schema="" ref-catalog="hlu" ref-columns="hlu_renter_home_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="fk_hlu_renter_home_have_amenities_1_idx" unique="false" columns="hlu_renter_home_have_amenities_amenities_id"/>
+      <index name="fk_hlu_renter_home_have_amenities_2_idx" unique="false" columns="hlu_renter_home_have_amenities_home_id"/>
+    </table>
+    <table name="hlu_renter_home_mobile" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_renter_home_mobile_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="hlu_renter_home_mobile_number" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hlu_renter_home_mobile_status" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" def="MA=="/>
+      <column name="hlu_renter_home_mobile_home_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="hlu_renter_home_mobile_id"/>
+      <foreign-key name="fk_hlu_renter_home_mobile_1" columns="hlu_renter_home_mobile_home_id" ref-table="hlu_renter_home" ref-schema="" ref-catalog="hlu" ref-columns="hlu_renter_home_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="fk_hlu_renter_home_mobile_1_idx" unique="false" columns="hlu_renter_home_mobile_home_id"/>
+    </table>
+    <table name="hlu_renter_home_photo" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_renter_home_photo_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="hlu_renter_home_photo_home_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hlu_renter_home_photo_url" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="hlu_renter_home_photo_id"/>
+      <foreign-key name="fk_hlu_renter_home_photo_1" columns="hlu_renter_home_photo_home_id" ref-table="hlu_renter_home" ref-schema="" ref-catalog="hlu" ref-columns="hlu_renter_home_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="fk_hlu_renter_home_photo_1_idx" unique="false" columns="hlu_renter_home_photo_home_id"/>
+    </table>
+    <table name="hlu_renter_home_price" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_renter_home_price_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="hlu_renter_home_price_night" sqlType="FLOAT" precision="12" scale="0" nullable="true" jdbcType="7"/>
+      <column name="hlu_renter_home_price_currency" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="hlu_renter_home_price_id"/>
+      <foreign-key name="fk_hlu_renter_home_price_1" columns="hlu_renter_home_price_id" ref-table="hlu_renter_home" ref-schema="" ref-catalog="hlu" ref-columns="hlu_renter_home_id" update-rule="0" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="hlu_renter_home_safety" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_renter_home_safety_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="hlu_renter_home_safety_type" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_renter_home_safety_card" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_renter_home_safety_fire_alarm" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_renter_home_safety_fire_extinguisher" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_renter_home_safety_emergency_exit" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_renter_home_safety_gas_valve" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="hlu_renter_home_safety_id"/>
+      <foreign-key name="fk_hlu_renter_home_safety_1" columns="hlu_renter_home_safety_id" ref-table="hlu_renter_home" ref-schema="" ref-catalog="hlu" ref-columns="hlu_renter_home_id" update-rule="0" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="hlu_roles" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_roles_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="hlu_roles_name" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="hlu_roles_id"/>
+      <exported-key name="fk_hlu_roles_permissions_1" table="hlu_roles_permissions" schema="" catalog="hlu" columns="hlu_roles_permissions_role_id"/>
+      <exported-key name="fk_hlu_users_1" table="hlu_users" schema="" catalog="hlu" columns="hlu_users_roles_id"/>
+      <index name="hlu_roles_name_UNIQUE" unique="true" columns="hlu_roles_name"/>
+    </table>
+    <table name="hlu_roles_permissions" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_roles_permissions_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="hlu_roles_permissions_role_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hlu_roles_permissions_permission_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="hlu_roles_permissions_id"/>
+      <foreign-key name="fk_hlu_roles_permissions_1" columns="hlu_roles_permissions_role_id" ref-table="hlu_roles" ref-schema="" ref-catalog="hlu" ref-columns="hlu_roles_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="fk_hlu_roles_permissions_2" columns="hlu_roles_permissions_permission_id" ref-table="hlu_permissions" ref-schema="" ref-catalog="hlu" ref-columns="hlu_permissions_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="fk_hlu_roles_permissions_1_idx" unique="false" columns="hlu_roles_permissions_role_id"/>
+      <index name="fk_hlu_roles_permissions_2_idx" unique="false" columns="hlu_roles_permissions_permission_id"/>
+    </table>
+    <table name="hlu_users" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_users_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="hlu_users_username" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
+      <column name="hlu_users_password" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_users_token" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_users_social_id" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_users_roles_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hlu_users_provider" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_users_status" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="JzAn"/>
+      <primary-key name="PRIMARY" columns="hlu_users_id"/>
+      <foreign-key name="fk_hlu_users_1" columns="hlu_users_roles_id" ref-table="hlu_roles" ref-schema="" ref-catalog="hlu" ref-columns="hlu_roles_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="messages_id" table="hlu_messages" schema="" catalog="hlu" columns="hlu_messages_send_to"/>
+      <exported-key name="fk_hlu_offers_1" table="hlu_offers" schema="" catalog="hlu" columns="hlu_offers_id"/>
+      <exported-key name="fk_hlu_profiles_1" table="hlu_profiles" schema="" catalog="hlu" columns="hlu_profiles_id"/>
+      <exported-key name="fk_hlu_users_social_accounts_1" table="hlu_users_social_accounts" schema="" catalog="hlu" columns="hlu_users_social_accounts_users_id_fk"/>
+      <exported-key name="fk_hlu_users_wallet_1" table="hlu_users_wallet" schema="" catalog="hlu" columns="hlu_users_wallet_id"/>
+      <index name="hlu_users_username_UNIQUE" unique="true" columns="hlu_users_username"/>
+      <index name="fk_hlu_users_1_idx" unique="false" columns="hlu_users_roles_id"/>
+    </table>
+    <table name="hlu_users_permissions" schema="" catalog="hlu" type="VIEW">
+      <column name="hlu_users_permissions_user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="hlu_users_permissions_username" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
+      <column name="hlu_users_permissions_user_role_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hlu_users_permissions_user_role" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
+      <column name="hlu_users_permissions_user_permission" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="hlu_users_social_accounts" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_users_social_accounts_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="hlu_users_social_accounts_provider" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_users_social_accounts_user_id" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_users_social_accounts_user_email" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_users_social_accounts_user_name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_users_social_accounts_users_id_fk" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="hlu_users_social_accounts_id"/>
+      <foreign-key name="fk_hlu_users_social_accounts_1" columns="hlu_users_social_accounts_users_id_fk" ref-table="hlu_users" ref-schema="" ref-catalog="hlu" ref-columns="hlu_users_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="hlu_users_social_accounts_user_email_UNIQUE" unique="true" columns="hlu_users_social_accounts_user_email"/>
+      <index name="fk_hlu_users_social_accounts_1_idx" unique="false" columns="hlu_users_social_accounts_users_id_fk"/>
+    </table>
+    <table name="hlu_users_wallet" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_users_wallet_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="hlu_users_wallet_amount" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="hlu_users_wallet_id"/>
+      <foreign-key name="fk_hlu_users_wallet_1" columns="hlu_users_wallet_id" ref-table="hlu_users" ref-schema="" ref-catalog="hlu" ref-columns="hlu_users_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="fk_hlu_wallet_transactions_1" table="hlu_wallet_transactions" schema="" catalog="hlu" columns="hlu_wallet_transactions_wallet_id"/>
+    </table>
+    <table name="hlu_wallet_transactions" schema="" catalog="hlu" type="TABLE">
+      <column name="hlu_wallet_transactions_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="hlu_wallet_transactions_wallet_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="hlu_wallet_transactions_description" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="hlu_wallet_transactions_transaction_type" sqlType="ENUM" precision="6" scale="0" nullable="true" jdbcType="1"/>
+      <column name="hlu_wallet_transactions_transaction_amount" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hlu_wallet_transactions_transaction_date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="hlu_wallet_transactions_id"/>
+      <foreign-key name="fk_hlu_wallet_transactions_1" columns="hlu_wallet_transactions_wallet_id" ref-table="hlu_users_wallet" ref-schema="" ref-catalog="hlu" ref-columns="hlu_users_wallet_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="fk_hlu_wallet_transactions_1_idx" unique="false" columns="hlu_wallet_transactions_wallet_id"/>
+    </table>
+  </data-source>
+</component>
