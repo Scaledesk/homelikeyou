@@ -14,6 +14,40 @@ class Mdl_address extends CI_Model
     private $address_state;
     private $address_country;
     private $address_zip;
+    private $lat;
+    private $lon;
+
+    /**
+     * @return mixed
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     * @param mixed $lat
+     */
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLon()
+    {
+        return $this->lon;
+    }
+
+    /**
+     * @param mixed $lon
+     */
+    public function setLon($lon)
+    {
+        $this->lon = $lon;
+    }
 
     /**
      * @return mixed
@@ -138,6 +172,8 @@ class Mdl_address extends CI_Model
         $this->setAddressState(func_get_arg(4));
         $this->setAddressCountry(func_get_arg(5));
         $this->setAddressZip(func_get_arg(6));
+        $this->setLat(func_get_arg(7));
+        $this->setLon(func_get_arg(8));
 
     }
     private function _validate()
@@ -149,7 +185,8 @@ class Mdl_address extends CI_Model
                   $this->setAddressState($this->security->xss_clean($this->getAddressState()));
                   $this->setAddressCountry($this->security->xss_clean($this->getAddressCountry()));
                   $this->setAddressZip($this->security->xss_clean($this->getAddressZip()));
-
+                  $this->setLat($this->security->xss_clean($this->getLat()));
+                  $this->setLon($this->security->xss_clean($this->getLon()));
                }
 
 
@@ -164,7 +201,10 @@ class Mdl_address extends CI_Model
                     'hlu_renter_home_address_city' => $this->getAddressCity(),
                     'hlu_renter_home_address_state' => $this->getAddressState(),
                     'hlu_renter_home_address_country' => $this->getAddressCountry(),
-                    'hlu_renter_home_address_zip' => $this->getAddressZip()
+                    'hlu_renter_home_address_zip' => $this->getAddressZip(),
+                    'hlu_renter_home_address_lat' => $this->getLat(),
+                    'hlu_renter_home_address_lon' => $this->getLon()
+
                 ];
                 return $this->db->insert('hlu_renter_home_address', $data) ? true : false;
          }

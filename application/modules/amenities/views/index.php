@@ -6,12 +6,13 @@
  * Time: 11:30 AM
  */ ?>
 
-
-
+<?php
+getInformUser();
+?>
+<h1>Amenities</h1>
 <?php echo form_open('amenities'); ?>
 <input type="text"   name="amenities_name"  placeholder="Amenities Name"> </br>
 <input type="submit"  name="submit" value="submit" >
-
 <?php echo form_close(); ?> </br>
 
 

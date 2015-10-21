@@ -21,8 +21,10 @@ class Mobiles extends MX_Controller
     public function index()
     {
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-
-            $to_do_with_post=$_POST['todo'];
+            $to_do_with_post='';
+if(isset($_POST['todo'])){
+           $to_do_with_post=$_POST['todo'];
+}
             if ($to_do_with_post=="hlu87687"){
                 echo $this->_updateMobiles('update',$this->input->post())?"your  update sucessfully":"sorry, some error occured";
             }
@@ -31,16 +33,22 @@ class Mobiles extends MX_Controller
                 echo $this->_varifyMobiles('status',$this->input->post())?"your  Status sucessfully Update":"sorry, some error occured";
             }
             else {
-                echo $this->_mobiles($this->input->post()) ? "your inserted sucessfully" : "sorry, some error occured";
+                if($this->_mobiles( $this->input->post())){
+                    $this->session->unset_userdata('home_id');
+                    setInformUser('success','Details saved successfully, kindly fill these details');
+                    echo 'Your advertisement completed successfully';
+                }else{
+                    setInformUser('error','Details not saved successfully, try Again');
+                    redirect('mobiles');
+                }
             }
-
         }
-
-
-
         else {
-
-
+            $home_id=$this->session->userdata('home_id')?$this->session->userdata('home_id'):'';
+            if($home_id==''){
+                setInformUser('error','First post these details');
+                redirect('renters/rentAHome');
+            }
             $this->load->view('index');
 
         }
@@ -51,7 +59,7 @@ class Mobiles extends MX_Controller
 
 
 
-        $this->Mdl_mobiles->setData(/*"2"$this->session->userdata['user_data']['user_id'],*/$data['home_id'],$data['mobile_number']);
+        $this->Mdl_mobiles->setData($this->session->userdata('home_id'),$data['mobile_number']);
         return $this->Mdl_mobiles->mobiles($data)?true:false;
     }
 

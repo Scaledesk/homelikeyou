@@ -1,17 +1,11 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Created by PhpStorm.
- * User: NItesh
- * Date: 9/28/2015
- * Time: 6:38 PM
- */ ?>
-
-
-
-
-
-<?php echo form_open('safety'); ?>
+ * User: tushar
+ * Date: 21/10/15
+ * Time: 6:01 PM
+ */
+echo form_open('safety'); ?>
 <input type="text"   name="safety_type"  placeholder="Safety Type"> </br>
 <input type="text"   name="fire_alarm"  placeholder=" Fire Alarm"> </br>
 <input type="text"   name="gas_valve"  placeholder="Gas Value"> </br>

@@ -1,78 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Place Autocomplete Address Form</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 400px;
+            width: 700px;
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <style>
+        #locationField, #controls {
+            position: relative;
+            width: 480px;
+        }
+        #autocomplete {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 99%;
+        }
+        .label {
+            text-align: right;
+            font-weight: bold;
+            width: 100px;
+            color: #303030;
+        }
+        #address {
+            border: 1px solid #000090;
+            background-color: #f0f0ff;
+            width: 480px;
+            padding-right: 2px;
+        }
+        #address td {
+            font-size: 10pt;
+        }
+        .field {
+            width: 99%;
+        }
+        .slimField {
+            width: 80px;
+        }
+        .wideField {
+            width: 200px;
+        }
+        #locationField {
+            height: 20px;
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+
+<body>
 <?php
-/**
- * Created by PhpStorm.
- * User: Nitesh
- * Date: 9/26/2015
- * Time: 4:09 PM
- */
-
+getInformUser();
 ?>
+<?php echo form_open('address');?>
+<div id="locationField">
+    <input id="autocomplete" placeholder="Enter your address"
+           onFocus="geolocate()" type="text"></input>
+</div>
 
+<table id="address">
+    <tr>
+        <td class="label">Street address</td>
+        <td class="slimField"><input class="field" id="street_number" name="address_hno"
+            name="address_street"             disabled="true" placeholder="House / Apartment No"></input></td>
+        <td class="wideField" colspan="2"><input class="field" id="route" name="address_street"
+                                                 disabled="true" placeholder="Your Address"></input></td>
+    </tr>
+    <tr>
+        <td class="label">City</td>
+        <td class="wideField" colspan="3"><input class="field" id="locality" name="address_city"
+                                                 disabled="true" placeholder="City"></input></td>
+    </tr>
+    <tr>
+        <td class="label">State</td>
+        <td class="slimField"><input class="field" name="address_state"
+                                     id="administrative_area_level_1"  disabled="true" placeholder="State"></input></td>
+        <td class="label">Zip code</td>
+        <td class="wideField"><input class="field" id="postal_code" name="address_zip"
+                                     disabled="true" placeholder="Zip"></input></td>
+    </tr>
+    <tr>
+        <td class="label">Country</td>
+        <td class="wideField" colspan="3"><input class="field" name="address_country"
+                                                 id="country" disabled="true" onchange="getLatLngFromAddress()" placeholder="Country"></input></td>
+    </tr>
+<tr>
+   <td><input type="hidden" id="latitude" name="latitude"/></td>
+    <td> <input type="hidden" id="longitude" name="longitude"/></td>
+</tr>
+<tr>
+    <input type="submit" value="submit" />
+</tr>
+</table>
 
-<?php echo form_open('address'); ?>
-<input type="text" id="txtPlaces"    name="address_street"    placeholder="Address">      </br>
-<input type="text" id="home_no"      name="address_hno"       placeholder="Home">         </br>
-<input type="text" id="city"         name="address_city"      placeholder="City">         </br>
-<input type="text" id="state"        name="address_state"     placeholder="State">        </br>
-<input type="text" id="country"      name="address_country"   placeholder="Country">      </br>
-<input type="text" id="zip"          name="address_zip"       placeholder="Zip  Code">    </br></br></br>
-<input type="text" id="id"          name="address_id"       placeholder=" foreign key Id">    </br>
-<input type="submit"                 name="submit"   value="submit" >
+<?php echo form_close();?>
+<br/>
 
-<?php echo form_close(); ?>
+<script>
+    // This example displays an address form, using the autocomplete feature
+    // of the Google Places API to help users fill in the information.
 
+    var placeSearch, autocomplete;
+    var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+    };
 
+    function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+            {types: ['geocode']});
 
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+    }
 
+    // [START region_fillform]
+    function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
 
+        for (var component in componentForm) {
+            document.getElementById(component).value = '';
+            document.getElementById(component).disabled = false;
+        }
 
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
-<script type="text/javascript">
-    google.maps.event.addDomListener(window, 'load', function () {
-        var places = new google.maps.places.Autocomplete(document.getElementById('txtPlaces'));
-        google.maps.event.addListener(places, 'place_changed', function () {
-            var place = places.getPlace();
-            var address = place.formatted_address;
-            var latitude = place.geometry.location.H;
-            var longitude = place.geometry.location.L;
-            var mesg = "Address: " + address;
-
-            console.log(place.address_components.length);
-            console.log(place.address_components[3]['long_name']);
-            //var array = JSON.parse("[" + address + "]");
-            //var conutry=place.country-name;
-            //var address = place.address_components;
-            mesg += "\nLatitude: " + latitude;
-            mesg += "\nLongitude: " + longitude;
-            // alert(place);
-            var getCountry;
-            var getState;
-            // var getPincode;
-            // console.log(place)
-            /*.......................................................*/
-            for (var i = 0; i < place.address_components.length; i++)
-            {
-                var addr = place.address_components[i];
-
-                if (addr.types[0] == 'country') {
-                    getCountry = addr.long_name;
-                }
-                if(addr.types[0]=='administrative_area_level_1'){
-                    getState = addr.long_name;
-                }
-
-                if(addr.types[0]=='postal-code'){
-                    getPincode=addr.postal-code;
-                }
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (componentForm[addressType]) {
+                var val = place.address_components[i][componentForm[addressType]];
+                document.getElementById(addressType).value = val;
             }
+        }
+    }
+    // [END region_fillform]
 
-            //alert(getCountry);
+    // [START region_geolocation]
+    // Bias the autocomplete object to the user's geographical location,
+    // as supplied by the browser's 'navigator.geolocation' object.
+    function geolocate() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var geolocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                var circle = new google.maps.Circle({
+                    center: geolocation,
+                    radius: position.coords.accuracy
+                });
+                autocomplete.setBounds(circle.getBounds());
+            });
+        }
+    }
+    // [END region_geolocation]
 
-            document.getElementById("state").value= getState;
-            document.getElementById("country").value= getCountry;
-            //document.getElementById("pincode").value= getPincode;
-            /*..................................................................*/
-
-        });
-    });
 </script>
+<script>
+    function getLatLngFromAddress(){
+//        var address = document.getElementById('locality').value+" "+ document.getElementById('country').value;
+        var address = document.getElementById('autocomplete').value;
+        var geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode( { 'address': address},function(results, status) {
+
+            if (status == google.maps.GeocoderStatus.OK) {
+                document.getElementById('latitude').value=results[0].geometry.location.lat();
+                document.getElementById('longitude').value=results[0].geometry.location.lng();
+                showAddressLocation();
+            } else {
+                console.log("Geocode was not successful for the following reason: " + status);
+            }
+        });
+    }
+</script>
+<script>
+    if (navigator.geolocation)
+    {
+        navigator.geolocation.getCurrentPosition(showCurrentLocation);
+    }
+    else
+    {
+        alert("Geolocation API not supported.");
+    }
+
+    function showCurrentLocation(position)
+    {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        var coords = new google.maps.LatLng(latitude, longitude);
+
+        var mapOptions = {
+            zoom: 15,
+            center: coords,
+            mapTypeControl: true,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        //create the map, and place it in the HTML map div
+        map = new google.maps.Map(
+            document.getElementById("map"), mapOptions
+        );
+
+        //place the initial marker
+        var marker = new google.maps.Marker({
+            position: coords,
+            map: map,
+            title: "Current location!"
+        });
+    }
+    function showAddressLocation()
+    {
+        var latitude =  document.getElementById('latitude').value;
+        var longitude =  document.getElementById('longitude').value;
+        var coords = new google.maps.LatLng(latitude, longitude);
+
+        var mapOptions = {
+            zoom: 15,
+            center: coords,
+            mapTypeControl: true,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        //create the map, and place it in the HTML map div
+        map = new google.maps.Map(
+            document.getElementById("map"), mapOptions
+        );
+
+        //place the initial marker
+        var marker = new google.maps.Marker({
+            position: coords,
+            map: map,
+            title: document.getElementById('autocomplete').value,
+            draggable:true
+        });
+        marker.addListener('click', toggleBounce);
+        function toggleBounce() {
+            if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        }
+        google.maps.event.addListener(marker, 'dragend', function() {
+            document.getElementById('latitude').value=marker.getPosition().lat();
+            document.getElementById('longitude').value=marker.getPosition().lng();
+        });
+
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeJFc6YQR1PO6r8TwW8dMfvpmALtokYwI&signed_in=true&libraries=places&callback=initAutocomplete"
+        async defer></script>
+<button onclick="getLatLngFromAddress()">Show on Map</button>
+<div id="map"></div>
+</body>
+</html>

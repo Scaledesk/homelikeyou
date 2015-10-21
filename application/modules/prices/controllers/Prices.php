@@ -18,39 +18,27 @@ class Prices extends MX_Controller
         require $_SERVER["DOCUMENT_ROOT"].'/homelikeyou/vendor/autoload.php';
         $this->load->Model('Mdl_prices');
     }
-
-
     public function index()
     {
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-
-            $to_do_with_post=$_POST['todo'];
-            if ($to_do_with_post=="hlu87687"){
-                echo $this->_updatePrices('update',$this->input->post())?"your  update sucessfully":"sorry, some error occured";
+            if($this->_prices( $this->input->post())){
+                setInformUser('success','Details saved successfully, kindly fill these details');
+                redirect('hlu_calendar');
+            }else{
+                setInformUser('error','Details not saved successfully, try Again');
+                redirect('prices');
             }
-            else {
-                echo $this->_prices($this->input->post()) ? "your inserted sucessfully" : "sorry, some error occured";
+        } else {
+            $home_id=$this->session->userdata('home_id')?$this->session->userdata('home_id'):'';
+            if($home_id==''){
+                setInformUser('error','First post these details');
+                redirect('renters/rentAHome');
             }
-
-        }
-
-
-
-        else {
-
-
             $this->load->view('index');
-
         }
     }
-
-
-
     private function _prices($data){
-
-
-
-        $this->Mdl_prices->setData(/*"2"$this->session->userdata['user_data']['user_id'],*/$data['price_id'],$data['price_night'],$data['price_currency']);
+        $this->Mdl_prices->setData($this->session->userdata('home_id'),$data['price_night'],$data['price_currency']);
         return $this->Mdl_prices->prices($data)?true:false;
     }
 

@@ -133,7 +133,7 @@ class Mdl_calendar extends CI_Model {
     public function setData(){
     switch(func_get_arg(0)){
         case 'insert':{
-        $this->setHomeId(1);// currently this is given manually, atfter that it will come dynamically either by session or by some other method
+        $this->setHomeId(func_get_arg(2));
         $this->setAvailable(func_get_arg(1)['availability']);
         $this->setStartDate(func_get_arg(1)['start_date']);
         $this->setEndDate(func_get_arg(1)['end_date']);
@@ -142,7 +142,7 @@ class Mdl_calendar extends CI_Model {
         break;
         }
         case 'update':{
-            $this->setHomeId(1);// currently this is given manually, atfter that it will come dynamically either by session or by some other method
+            $this->setHomeId(func_get_arg(2));
             $this->setId(1);// currently this is given manually, atfter that it will come dynamically either by session or by some other method
             $this->setAvailable(func_get_arg(1)['availability']);
             $this->setStartDate(func_get_arg(1)['start_date']);
