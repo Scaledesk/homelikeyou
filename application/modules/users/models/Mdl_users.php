@@ -456,4 +456,11 @@ class Mdl_users extends CI_Model
        return $this->db->where('hlu_forgot_pwd_password',$token)->delete('hlu_forgot_pwd')?true:false;
    }
 
+
+    public function usersViews(){
+
+       $data = $this->db->query("select * from hlu_users   join hlu_profiles on hlu_users.hlu_users_id=hlu_profiles.hlu_profiles_id")->result_array();
+
+        return $data;
+    }
 }

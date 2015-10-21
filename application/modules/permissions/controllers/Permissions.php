@@ -25,6 +25,7 @@ class Permissions extends MX_Controller{
                     }
                 }
             }else{
+                $this->load->view('admin/header/header');
                 $this->load->view('index.php');
             }
         }

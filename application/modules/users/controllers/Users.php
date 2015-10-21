@@ -81,7 +81,9 @@ class Users extends MX_Controller{
                 $this->Mdl_users->setData('setSessionData',$data['user_name_email']);
                 $user_data=$this->Mdl_users->getUserData();
                 $this->_setSessionData('authorize',$user_data);
-                redirect('testapp');
+                $this->load->view('header/header');
+                $this->load->view('dashboard');
+              //  redirect('testapp');
             }else{
                 //set flash message that his username and password do not match try again.
                 setInformUser('error','your Username and password do not match');
@@ -314,6 +316,7 @@ class Users extends MX_Controller{
                 $user_data=$this->Mdl_users->getUserData();
                 $this->_setSessionData('authorize',$user_data);
                 redirect('testapp');
+
             }else
                 if($this->Mdl_users->isNormalRegistered()){
                     //set flash error message to inform user that he has already registered, through normal registration, try normal login or forgot password
@@ -472,5 +475,13 @@ class Users extends MX_Controller{
         }else{
             return false;
         }
+    }
+    public  function usersViews(){
+
+        $data['user']=$this->Mdl_users->usersViews();
+
+        $this->load->view('admin/header/header');
+        $this->load->view('users_views',$data);
+
     }
 }

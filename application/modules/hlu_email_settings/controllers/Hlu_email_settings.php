@@ -31,6 +31,7 @@ class Hlu_email_settings extends MX_Controller{
 
         }else{
             $data['email_settings']=$this->Mdl_hlu_email_settings->toArray();
+            $this->load->view('admin/header/header');
             $this->load->view('index',$data);
         }
         }else{

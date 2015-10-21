@@ -12,6 +12,7 @@ class Messages  extends MX_Controller
     function __construct(){
         parent::__construct();
         $this->load->Model('Mdl_messages');
+        $this->load->Model('Users/Mdl_users');
    //	$this->load->helper(array('form','url','language'));
         $this->load->library('upload');
     }
@@ -28,7 +29,11 @@ class Messages  extends MX_Controller
         }
 
         else{
-            $this->load->view('index.php');
+            $data['email']=$this->getEmail();
+            /*print_r($data['email']);
+            die();*/
+            $this->load->view('admin/header/header.php');
+            $this->load->view('index.php',$data);
         }
     }
 
@@ -56,6 +61,14 @@ class Messages  extends MX_Controller
                 break;
             default: break;
         }
+
+    }
+
+
+    public  function getEmail(){
+        $data=$this->Mdl_messages->getEmail();
+
+        return $data;
 
     }
 

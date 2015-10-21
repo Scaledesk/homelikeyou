@@ -25,6 +25,7 @@ class Wallet extends MX_Controller{
                 $users=$this->_getUsers();
                 $data['users']=$users;
                 $data['transaction_type']=Wallet_transaction_type::toArray();
+                $this->load->view('admin/header/header');
                 $this->load->view('index',$data);
             }
         }else{

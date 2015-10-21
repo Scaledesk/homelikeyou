@@ -8,17 +8,39 @@
 
 
 echo form_open_multipart('messages'); ?>
+<div class="col-xs-2">
+    <?php /*    print_r($email);
+    die();*/?>
+
 <label for="send_to[]">send_to</label>
-<select name="send_to[]" multiple>
-    <option value="1">one</option>
-    <option value="2">two</option>
-    <option value="3">three</option>
-    <option value="4">four</option>
+<select class="form-control" name="send_to[]" multiple>
+    <?php
+
+
+    foreach($email as $d) {?>
+       <!-- --><?php /*echo $email[0]->hlu_users_username */?>
+    <option value="<?php echo $d->hlu_users_username ?>"><?php echo $d->hlu_users_username ?></option>
+    <?php }?>
 </select></br>
+    </div>
 <!--<input type="text" name="send_to[]" placeholder="To"></br>-->
-<input type="text" name="subject" placeholder="Subject"></br>
-<input type="text" name="body" placeholder="Body"></br>
-<input type="file" name="attached"></br>
-<input type="hidden" name="todo" value="hml324">
-<input type="submit" value="Send" name="submit">
+<div class="col-xs-2">
+    <label ></label>
+<input type="text" class="form-control"name="subject" placeholder="Subject"></br>
+</div>
+    <div class="col-xs-2">
+        <label ></label>
+<input type="text"class="form-control" name="body" placeholder="Body"></br>
+    </div>
+        <div class="col-xs-2">
+            <label ></label>
+<input type="file"class="form-control" name="attached"></br>
+        </div>
+
+<input type="hidden" class="form-control" name="todo" value="hml324"> </br>
+
+                <div class="col-xs-2">
+                    <label ></label>
+<input type="submit" class="btn btn-default" value="Send" name="submit">
+                </div>
 <?php echo form_close(); ?> </br>

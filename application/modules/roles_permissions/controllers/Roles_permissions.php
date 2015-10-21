@@ -46,6 +46,7 @@ class Roles_permissions extends MX_Controller{
                 print_r($permissions1);*/
                 $data['roles']=$roles1;
                 $data['permissions']=$permissions1;
+                $this->load->view('admin/header/header');
                 $this->load->view('index.php',$data);
             }
         }

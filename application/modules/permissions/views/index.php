@@ -7,8 +7,11 @@
  */
 echo form_open('permissions');
 ?>
-<input type="text" placeholder="try module.context.action" name="permission_name" id="permission_name" />
+    <div class="col-xs-2">
+<input type="text" class="form-control" placeholder="try module.context.action" name="permission_name" id="permission_name" />
+</div>
 <?php echo form_hidden('todo', 'insert_permission'); ?>
-    <input type="submit" value="Insert Permission"/>
+
+    <input type="submit" class="btn btn-default" value="Insert Permission"/>
 <?
 echo form_close();
